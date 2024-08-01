@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 13:36:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/06/26 16:38:19 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:04:39 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,15 @@ typedef struct s_fptr	t_fptr;
 struct	s_fptr
 {
 	char	*ptr;
-	u_long	len;
+	u_long	size;
 };
 
-void	fptr_free(t_fptr *fptr, void (*__free)(void *));
+/* Malloc a new `t_fptr` struct and initialize its inner pointer using `size`.
+ * If `size` is null, then `ptr` will be too. */
+t_fptr	*fptr_new(u_long size);
+/* Initialize a `t_fptr` struct and allocate its inner pointer using `size`. */
+void	*fptr_init(t_fptr *fptr, u_long size);
+void	fptr_free(t_fptr *fptr, void (*free)(void *));
 
 typedef struct s_sptr	t_sptr;
 struct	s_sptr

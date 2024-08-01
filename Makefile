@@ -7,12 +7,27 @@ LFT_DIR = libft
 MLX_DIR = minilibx-linux
 
 CFLAGS = -Wall -Wextra -Werror
-IFLAGS = -I${INC_DIR} -I${MLX_DIR}
+IFLAGS = -I${INC_DIR} -I${LFT_DIR} -I${MLX_DIR}
 DFLAGS = -MMD -MP
-LFLAGS = -L${LFT_DIR} -L${MLX_DIR} -lft -lmlx
+LFLAGS = -L${LFT_DIR} -lft -L${MLX_DIR} -lmlx_Linux -lXext -lX11
+
+ifneq ("${DEBUG}", "")
+	CFLAGS := ${DEBUG} ${CFLAGS}
+endif
 
 OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
 	   main.c \
+	   parsing.c \
+	   parsing_utils.c \
+	   parsing_textures.c \
+	   parsing_colours.c \
+	   parsing_map.c \
+	   parsing_grid_values_check.c \
+	   parsing_grid_stretch_lines.c \
+	   parsing_grid_wall_check.c \
+	   read_file.c \
+	   cube_error.c \
+	   ft_str_endswith.c \
 	   )
 DEPS = ${OBJS:.o=.d}
 LIB_FT = ${LFT_DIR}/libft.a
@@ -40,14 +55,14 @@ ${OBJ_DIR}:
 
 .PHONY: clean
 clean:
-	rm -rf ${OBJ_DIR}
 	@make --no-print-directory -C ${MLX_DIR} clean
 	@make --no-print-directory -C ${LFT_DIR} clean
+	rm -rf ${OBJ_DIR}
 
 .PHONY: fclean
 fclean: clean
-	rm -f ${NAME}
 	@make --no-print-directory -C ${LFT_DIR} fclean
+	rm -f ${NAME}
 
 .PHONY: re
 re: fclean

@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   cube_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 20:52:27 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/07/29 19:19:46 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/07/25 16:42:05 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/07/25 16:43:47 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "basics.h"
-#include <stdlib.h>
+#include "libft.h"
 
-void	*ft_realloc(void *p, unsigned long old_size, unsigned long n)
+int	cube_error(char *__message)
 {
-	void	*new;
-
-	if (n == 0)
-		return (NULL);
-	new = malloc(n);
-	if (!new)
-		return (NULL);
-	if (!p)
-		return (new);
-	if (n < old_size)
-		ft_memmove(new, p, n);
-	else
-		(void)ft_memmove(new, p, old_size);
-	free(p);
-	return (new);
+	ft_putstr_fd("Error\n", 2);
+	if (__message)
+		ft_putstr_fd(__message, 2);
+	return (0);
 }
