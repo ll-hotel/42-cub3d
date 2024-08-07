@@ -9,13 +9,14 @@ MLX_DIR = minilibx-linux
 CFLAGS = -Wall -Wextra -Werror
 IFLAGS = -I${INC_DIR} -I${LFT_DIR} -I${MLX_DIR}
 DFLAGS = -MMD -MP
-LFLAGS = -L${LFT_DIR} -lft -L${MLX_DIR} -lmlx_Linux -lXext -lX11
+LFLAGS = -L${LFT_DIR} -lft -L${MLX_DIR} -lmlx_Linux -lXext -lX11 -lm
 
 ifneq ("${DEBUG}", "")
 	CFLAGS := ${DEBUG} ${CFLAGS}
 endif
 
 OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
+	   init.c \
 	   main.c \
 	   parsing.c \
 	   parsing_utils.c \
@@ -28,6 +29,11 @@ OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
 	   read_file.c \
 	   cube_error.c \
 	   ft_str_endswith.c \
+	   \
+	   event.c \
+	   render.c \
+	   img_put_pixel.c \
+	   ray.c \
 	   )
 DEPS = ${OBJS:.o=.d}
 LIB_FT = ${LFT_DIR}/libft.a
@@ -37,6 +43,8 @@ NAME = cub3D
 
 .PHONY: all
 all: ${NAME}
+
+-include ${DEPS}
 
 ${NAME}: ${OBJS} | ${LIB_FT} ${LIB_MLX}
 	${CC} ${CFLAGS} ${IFLAGS} ${DFLAGS} -o $@ ${OBJS} ${LFLAGS}

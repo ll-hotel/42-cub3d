@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:36:00 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/07/30 00:31:18 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:45:20 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ static int	store_player(t_cube *cube, char **grid)
 		if (cell_is_player(grid[y][x]))
 			break ;
 	}
-	cube->player.x = x;
-	cube->player.y = y;
-	cube->player.dirX = (grid[y][x] == 'E') - (grid[y][x] == 'W');
-	cube->player.dirY = (grid[y][x] == 'N') - (grid[y][x] == 'S');
+	cube->player.pos.x = x;
+	cube->player.pos.y = y;
+	cube->player.dir.x = (grid[y][x] == 'E') - (grid[y][x] == 'W');
+	cube->player.dir.y = (grid[y][x] == 'N') - (grid[y][x] == 'S');
 	grid[y][x] = FLOOR;
 	return (1);
 }
