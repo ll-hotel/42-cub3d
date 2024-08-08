@@ -6,12 +6,11 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:21:42 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/07/30 00:00:05 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:35:44 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include "include/basics.h"
 #include "libft.h"
 
 static int	check_founds(char *f_colour, char *c_colour);
@@ -89,12 +88,13 @@ static int	store_colour(char *colour)
 	int	green;
 	int	blue;
 
+	colour += 2;
 	red = ft_atoi(colour);
 	while (*colour != ',')
 		colour += 1;
-	green = ft_atoi(colour);
-	while (*colour != 0)
+	green = ft_atoi(++colour);
+	while (*colour != ',')
 		colour += 1;
-	blue = ft_atoi(colour);
+	blue = ft_atoi(++colour);
 	return (red << 24 | green << 16 | blue);
 }
