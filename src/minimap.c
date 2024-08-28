@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 17:45:51 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/27 17:35:01 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:41:31 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,20 @@ void	render_minimap(t_cube *cube)
 			  point(px - cell_size / 2., py - cell_size / 2.), \
 			  point(px + cell_size / 2., py + cell_size / 2.), \
 			  0x00ff00);
+	t_point P = point(px + cube->player.dir.x * cell_size, py + cube->player.dir.y * cell_size);
 	img_put_line(&cube->mlx.img, \
 			  point(px, py), \
-			  point(px + cube->player.dir.x * cell_size, py + cube->player.dir.y * cell_size), \
+			  P, \
 			  0xff0000);
+	P.x = P.x - (cube->player.camera.x * cell_size / 2);
+	P.y = P.y - (cube->player.camera.y * cell_size / 2);
+	t_point P2 = point(P.x + cube->player.camera.x * cell_size, P.y + cube->player.camera.y * cell_size);
+	img_put_line(&cube->mlx.img, P, P2, 0xf0f0f0);
 }
 
 static void	setup(t_cube *cube, t_point *offset, int *cell_size)
 {
-	float const		max_map_size = ft_min(SCREEN_HEIGHT, SCREEN_WIDTH) / 4.;
+	float const		max_map_size = ft_min(SCREEN_HEIGHT, SCREEN_WIDTH) / 2.;
 	t_point const	p = point(cube->player.pos.x, cube->player.pos.y);
 	int const		cell_padding = *cell_size;
 

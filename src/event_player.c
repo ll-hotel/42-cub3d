@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 01:38:28 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/27 17:44:22 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:14:59 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 
 void	update_player_dir(t_player *player)
 {
-	const float	coef = 0.1;
-	float		cam_x;
-	float		cam_y;
+	float	coef;
+	float	cam_x;
+	float	cam_y;
 
 	if (player->turning == 0)
 		return ;
-	player->axis += player->turning * coef;
+	coef = 0.2 * player->turning;
+	player->axis += coef;
 	if (player->axis < 0)
 		player->axis += 2.f * PI;
 	else if (player->axis > 2.f * PI)
@@ -31,8 +32,8 @@ void	update_player_dir(t_player *player)
 	player->dir.y = -sinf(player->axis);
 	cam_x = player->camera.x;
 	cam_y = player->camera.y;
-	player->camera.x = cam_x * cosf(-coef) - cam_y * sinf(-coef);
-	player->camera.x = cam_x * sinf(-coef) + cam_y * cosf(-coef);
+	player->camera.x = cam_x * cosf(coef) + cam_y * sinf(coef);
+	player->camera.y = cam_x * -sinf(coef) + cam_y * cosf(coef);
 }
 
 void	update_player_pos(t_cube *cube)

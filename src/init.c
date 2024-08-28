@@ -6,17 +6,19 @@
 /*   By: omougel <omougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 14:59:03 by omougel           #+#    #+#             */
-/*   Updated: 2024/08/27 17:39:18 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:01:16 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include "mlx.h"
+#include "vec2f.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-static int	cube_init_mlx(t_cube *cube);
+static int		cube_init_mlx(t_cube *cube);
+static float	sign_of(float x);
 
 int	init_cube(t_cube *cube, const char *file_name)
 {
@@ -27,7 +29,10 @@ int	init_cube(t_cube *cube, const char *file_name)
 	}
 	cube->player.dir.x = cosf(cube->player.axis);
 	cube->player.dir.y = -sinf(cube->player.axis);
-	cube->player.camera = vec2f_scal(cube->player.dir, -FOV);
+	if (roundf(cube->player.dir.x) == 0)
+		cube->player.camera.x = FOV * sign_of(cube->player.dir.y);
+	else if (roundf(cube->player.dir.y) == 0)
+		cube->player.camera.y = FOV * sign_of(cube->player.dir.x);
 	return (1);
 }
 
@@ -89,4 +94,9 @@ void	destroy_cube(t_cube *cube)
 		mlx_destroy_window(cube->mlx.ptr, cube->mlx.win);
 	mlx_destroy_display(cube->mlx.ptr);
 	free(cube->mlx.ptr);
+}
+
+static float	sign_of(float x)
+{
+	return ((x >= 0.f) - (x < 0.f));
 }

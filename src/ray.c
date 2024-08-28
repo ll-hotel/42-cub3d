@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:08:58 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/27 18:05:39 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:15:57 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ray_take_step(t_ray *ray, int *map_x, int *map_y);
 
 void	ray_init_dda(t_ray *ray, t_player *player, int x)
 {
-	const float	screen_ratio = 1.f - ((2.f * x) / SCREEN_WIDTH);
+	const float	screen_ratio = ((2.f * x) / SCREEN_WIDTH) - 1.f;
 	t_vec2f		ray_dir_sq;
 
 	ray->dir.x = -player->dir.x + player->camera.x * screen_ratio;
