@@ -6,12 +6,12 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:36:00 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/03 18:45:20 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:35:39 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include "libft.h"
+#include "ft_basics.h"
 
 int			cell_is_player(int c);
 static int	store_map_grid(t_cube *cube, char **grid);
@@ -44,8 +44,8 @@ int	parsing_map(t_cube *cube, char **lines)
 
 static int	store_player(t_cube *cube, char **grid)
 {
-	u_long	y;
-	u_long	x;
+	ulong	y;
+	ulong	x;
 
 	y = -1;
 	while (grid[++y])
@@ -58,8 +58,14 @@ static int	store_player(t_cube *cube, char **grid)
 	}
 	cube->player.pos.x = x;
 	cube->player.pos.y = y;
-	cube->player.dir.x = (grid[y][x] == 'E') - (grid[y][x] == 'W');
-	cube->player.dir.y = (grid[y][x] == 'N') - (grid[y][x] == 'S');
+	if (grid[y][x] == 'E')
+		cube->player.axis = 0;
+	else if (grid[y][x] == 'N')
+		cube->player.axis = PI * 0.5;
+	else if (grid[y][x] == 'W')
+		cube->player.axis = PI;
+	else if (grid[y][x] == 'S')
+		cube->player.axis = PI * 1.5;
 	grid[y][x] = FLOOR;
 	return (1);
 }
@@ -75,7 +81,7 @@ static int	store_map_grid(t_cube *cube, char **grid)
 	cube->map.cells = ft_calloc(grid_size, sizeof(*cube->map.cells));
 	if (!cube->map.cells)
 		return (cube_error("Malloc failed\n"));
-	cube->map.heigth = grid_size;
+	cube->map.height = grid_size;
 	cube->map.width = 0;
 	while (grid_size-- > 0)
 	{

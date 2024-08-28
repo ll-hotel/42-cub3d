@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   lst_iter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 13:36:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/20 17:56:09 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/06/25 15:51:05 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/06/25 15:54:59 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
-# include "ft_basics.h"
-# include "ft_printf.h"
-# include "ft_dprintf.h"
-# include "ft_lst.h"
-# include "ft_vec.h"
-# include "ft_math.h"
-# include "ft_ptr.h"
-# include "get_next_line.h"
-#endif
+#include "ft_lst.h"
+
+void	lst_iter(t_lst_head *lst, void (*f)(void *))
+{
+	while (lst->first)
+	{
+		f(lst->first);
+		lst = lst->next;
+	}
+}

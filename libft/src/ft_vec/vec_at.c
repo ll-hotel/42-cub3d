@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   vec_at.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 13:36:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/20 17:56:09 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/04/01 13:32:32 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/08/20 17:51:41 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
-# include "ft_basics.h"
-# include "ft_printf.h"
-# include "ft_dprintf.h"
-# include "ft_lst.h"
-# include "ft_vec.h"
-# include "ft_math.h"
-# include "ft_ptr.h"
-# include "get_next_line.h"
-#endif
+#include "ft_vec.h"
+
+void	*vec_at(t_vec *vec, unsigned long i)
+{
+	if (i > vec->size || !vec->array)
+		return (0);
+	return (vec->array + i * vec->elem_size);
+}

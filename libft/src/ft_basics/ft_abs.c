@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 13:36:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/20 17:56:09 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/08/11 14:44:14 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/08/20 17:53:59 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
-# include "ft_basics.h"
-# include "ft_printf.h"
-# include "ft_dprintf.h"
-# include "ft_lst.h"
-# include "ft_vec.h"
-# include "ft_math.h"
-# include "ft_ptr.h"
-# include "get_next_line.h"
-#endif
+long	ft_abs(long n)
+{
+	return (n * ((n >= 0) - (n < 0)));
+}
+
+double	ft_absf(double n)
+{
+	return (n * ((n >= 0) - (n < 0)));
+}

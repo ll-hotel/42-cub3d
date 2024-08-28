@@ -6,35 +6,36 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:08:58 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/06 01:33:55 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:05:39 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+#include "vec2f.h"
 #include <math.h>
 
 static void	ray_take_step(t_ray *ray, int *map_x, int *map_y);
 
 void	ray_init_dda(t_ray *ray, t_player *player, int x)
 {
-	const float	plane_x = 2 * x / (float)SCREEN_WIDTH - 1.f;
-	t_vec2		ray_dir_sq;
+	const float	screen_ratio = 1.f - ((2.f * x) / SCREEN_WIDTH);
+	t_vec2f		ray_dir_sq;
 
-	ray->ray_dir.x = player->dir.x + player->camera.x * plane_x;
-	ray->ray_dir.y = player->dir.y + player->camera.y * plane_x;
-	ray_dir_sq.x = ray->ray_dir.x * ray->ray_dir.x;
-	ray_dir_sq.y = ray->ray_dir.y * ray->ray_dir.y;
+	ray->dir.x = -player->dir.x + player->camera.x * screen_ratio;
+	ray->dir.y = -player->dir.y + player->camera.y * screen_ratio;
+	ray_dir_sq.x = ray->dir.x * ray->dir.x;
+	ray_dir_sq.y = ray->dir.y * ray->dir.y;
 	ray->deltadist.x = sqrt(1. + (ray_dir_sq.y / ray_dir_sq.x));
 	ray->deltadist.y = sqrt(1. + (ray_dir_sq.x / ray_dir_sq.y));
-	ray->step.x = (ray->ray_dir.x < 0) - (ray->ray_dir.x >= 0);
-	ray->step.y = (ray->ray_dir.y < 0) - (ray->ray_dir.y >= 0);
-	if (ray->ray_dir.x >= 0)
+	ray->step.x = (ray->dir.x < 0) - (ray->dir.x >= 0);
+	ray->step.y = (ray->dir.y < 0) - (ray->dir.y >= 0);
+	if (ray->dir.x >= 0)
 		ray->side_dist.x = (player->pos.x - (int)player->pos.x) \
 			* ray->deltadist.x;
 	else
 		ray->side_dist.x = ((int)player->pos.x + 1 - player->pos.x) \
 			* ray->deltadist.x;
-	if (ray->ray_dir.y >= 0)
+	if (ray->dir.y >= 0)
 		ray->side_dist.y = (player->pos.y - (int)player->pos.y) \
 			* ray->deltadist.y;
 	else
@@ -66,13 +67,13 @@ void	ray_find_drawing_limits(t_ray *ray)
 		ray->perpwalldist = ray->side_dist.x - ray->deltadist.x;
 	else
 		ray->perpwalldist = ray->side_dist.y - ray->deltadist.y;
+	if (ray->perpwalldist < 1.f)
+		ray->perpwalldist = 1.f;
 	line_height = (SCREEN_HEIGHT / ray->perpwalldist);
 	ray->drawstart = (SCREEN_HEIGHT - line_height) / 2;// - player.dirZ;
 	if (ray->drawstart < 0)
 		ray->drawstart = 0;
-	ray->drawend = (SCREEN_HEIGHT + line_height) / 2;// - player.dirZ;
-	if (ray->drawend >= SCREEN_HEIGHT)
-		ray->drawend = SCREEN_HEIGHT - 1;
+	ray->drawend = SCREEN_HEIGHT - ray->drawstart - 1;
 }
 
 static void	ray_take_step(t_ray *ray, int *map_x, int *map_y)

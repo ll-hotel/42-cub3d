@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   vec_new.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 13:36:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/20 17:56:09 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/04/01 13:24:34 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/08/20 17:51:00 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
-# include "ft_basics.h"
-# include "ft_printf.h"
-# include "ft_dprintf.h"
-# include "ft_lst.h"
-# include "ft_vec.h"
-# include "ft_math.h"
-# include "ft_ptr.h"
-# include "get_next_line.h"
-#endif
+#include "ft_vec.h"
+
+void	vec_new(t_vec *vec, unsigned long elem_size)
+{
+	if (vec == (void *)0 || elem_size == 0)
+		return ;
+	vec->elem_size = elem_size;
+	vec->array = (void *)0;
+	vec->size = 0;
+	vec->allocated_size = 0;
+}

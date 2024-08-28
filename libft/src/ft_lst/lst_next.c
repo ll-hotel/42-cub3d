@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   lst_next.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 13:36:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/20 17:56:09 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/05/08 17:29:33 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/05/08 17:30:25 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
-# include "ft_basics.h"
-# include "ft_printf.h"
-# include "ft_dprintf.h"
-# include "ft_lst.h"
-# include "ft_vec.h"
-# include "ft_math.h"
-# include "ft_ptr.h"
-# include "get_next_line.h"
-#endif
+#include "ft_lst.h"
+
+t_lst	*lst_next(t_lst_head *lst)
+{
+	if (lst)
+		return (lst->first);
+	return (0);
+}

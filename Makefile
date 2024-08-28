@@ -27,13 +27,18 @@ OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
 	   parsing_grid_stretch_lines.c \
 	   parsing_grid_wall_check.c \
 	   read_file.c \
-	   cube_error.c \
+	   cube_utils.c \
 	   ft_str_endswith.c \
 	   \
 	   event.c \
+	   event_player.c \
 	   render.c \
+	   minimap.c \
 	   img_put_pixel.c \
+	   img_put_line.c \
 	   ray.c \
+	   \
+	   vec2f.c \
 	   )
 DEPS = ${OBJS:.o=.d}
 LIB_FT = ${LFT_DIR}/libft.a
@@ -49,7 +54,7 @@ all: ${NAME}
 ${NAME}: ${OBJS} | ${LIB_FT} ${LIB_MLX}
 	${CC} ${CFLAGS} ${IFLAGS} ${DFLAGS} -o $@ ${OBJS} ${LFLAGS}
 
-${LIB_FT}:
+${LIB_FT}::
 	@make --no-print-directory -C ${LFT_DIR}
 
 ${LIB_MLX}:

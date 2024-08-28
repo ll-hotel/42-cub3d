@@ -6,11 +6,12 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 03:56:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/04/24 17:38:28 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:50:28 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "basics.h"
+#include "ft_basics.h"
+#include "ft_math.h"
 #include <stdarg.h>
 #include <stdlib.h>
 

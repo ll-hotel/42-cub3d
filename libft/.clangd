@@ -1,5 +1,5 @@
 CompileFlags:
 	Add:
 	 - '-I../'
-	 - '-I../../include'
-	 - '-I../../../include'
+	 - '-I../../'
+	 - '-I../../../'

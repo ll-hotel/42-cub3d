@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:21:42 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/08 15:35:44 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:34:44 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ static int	store_colour(char *colour)
 	while (*colour != ',')
 		colour += 1;
 	blue = ft_atoi(++colour);
-	return (red << 24 | green << 16 | blue);
+	return (red << 16 | green << 8 | blue);
 }
