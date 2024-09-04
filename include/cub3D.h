@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:05:11 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/27 17:39:38 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:42:55 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 # define WALL '1'
 # define FLOOR '0'
 # define EMPTY ' '
-# define RAY_WIDTH 4
-# define SCREEN_WIDTH 1080
-# define SCREEN_HEIGHT 720
-# define FOV 0.66
+# define RAY_WIDTH 2
+# define SCREEN_WIDTH (1080 * 2)
+# define SCREEN_HEIGHT (720 * 2)
+# define FOV 0.66f
 # define CAMERA_PLANE_WIDTH ((float)SCREEN_WIDTH / (float)RAY_WIDTH)
 # define NAME "Cub3D"
 # define PI 3.141592

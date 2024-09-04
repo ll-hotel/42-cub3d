@@ -6,11 +6,12 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:08:58 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/28 17:15:57 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:41:33 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+#include "ft_basics.h"
 #include "vec2f.h"
 #include <math.h>
 
@@ -19,28 +20,23 @@ static void	ray_take_step(t_ray *ray, int *map_x, int *map_y);
 void	ray_init_dda(t_ray *ray, t_player *player, int x)
 {
 	const float	screen_ratio = ((2.f * x) / SCREEN_WIDTH) - 1.f;
-	t_vec2f		ray_dir_sq;
+	const int	map_x = floorf(player->pos.x);
+	const int	map_y = floorf(player->pos.y);
 
 	ray->dir.x = -player->dir.x + player->camera.x * screen_ratio;
 	ray->dir.y = -player->dir.y + player->camera.y * screen_ratio;
-	ray_dir_sq.x = ray->dir.x * ray->dir.x;
-	ray_dir_sq.y = ray->dir.y * ray->dir.y;
-	ray->deltadist.x = sqrt(1. + (ray_dir_sq.y / ray_dir_sq.x));
-	ray->deltadist.y = sqrt(1. + (ray_dir_sq.x / ray_dir_sq.y));
+	ray->deltadist.x = ft_absf(1.f / ray->dir.x);
+	ray->deltadist.y = ft_absf(1.f / ray->dir.y);
 	ray->step.x = (ray->dir.x < 0) - (ray->dir.x >= 0);
 	ray->step.y = (ray->dir.y < 0) - (ray->dir.y >= 0);
 	if (ray->dir.x >= 0)
-		ray->side_dist.x = (player->pos.x - (int)player->pos.x) \
-			* ray->deltadist.x;
+		ray->side_dist.x = (player->pos.x - map_x) * ray->deltadist.x;
 	else
-		ray->side_dist.x = ((int)player->pos.x + 1 - player->pos.x) \
-			* ray->deltadist.x;
+		ray->side_dist.x = (map_x + 1 - player->pos.x) * ray->deltadist.x;
 	if (ray->dir.y >= 0)
-		ray->side_dist.y = (player->pos.y - (int)player->pos.y) \
-			* ray->deltadist.y;
+		ray->side_dist.y = (player->pos.y - map_y) * ray->deltadist.y;
 	else
-		ray->side_dist.y = ((int)player->pos.y + 1 - player->pos.y) \
-			* ray->deltadist.y;
+		ray->side_dist.y = (map_y + 1 - player->pos.y) * ray->deltadist.y;
 }
 
 void	ray_perform_dda(t_ray *ray, t_cube *cube)
