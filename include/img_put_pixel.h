@@ -6,12 +6,13 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:11 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/21 00:00:24 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/09/08 20:39:16 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUT_MLX_H
-# define PUT_MLX_H
+#ifndef IMG_PUT_PIXEL_H
+# define IMG_PUT_PIXEL_H
+
 typedef struct s_img	t_img;
 typedef struct s_point	t_point;
 
@@ -33,8 +34,8 @@ struct	s_point
 };
 
 t_point	point(int x, int y);
-void	img_put_pixel(t_img *img, long const y, long const x, int const colour);
-int		img_get_pixel(t_img *const img, long const y, long const x);
+void	img_put_pixel(t_img *img, long y, long x, int colour);
+int		img_get_pixel(t_img *img, long y, long x);
 void	img_put_rect(t_img *img, t_point const top_left, \
 		t_point const bottom_right, int const colour);
 void	img_put_line(t_img *img, t_point p1, t_point p2, const int colour);

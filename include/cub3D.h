@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:05:11 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/09/04 16:42:55 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/09/08 20:40:38 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 # define WALL '1'
 # define FLOOR '0'
 # define EMPTY ' '
-# define RAY_WIDTH 2
-# define SCREEN_WIDTH (1080 * 2)
-# define SCREEN_HEIGHT (720 * 2)
-# define FOV 0.66f
-# define CAMERA_PLANE_WIDTH ((float)SCREEN_WIDTH / (float)RAY_WIDTH)
+# define RAY_WIDTH 1
+# define SCREEN_WIDTH 1080.f
+# define SCREEN_HEIGHT 720.f
+# define FOV 1.f
+# define CAMERA_PLANE_WIDTH SCREEN_WIDTH
+# define MINIMAP_SIZE 15
 # define NAME "Cub3D"
 # define PI 3.141592
 
@@ -47,10 +48,17 @@ struct	s_player
 	t_vec2f	pos;
 	t_vec2f	dir;
 	float	axis;
-	// float	dir_z; //if we use mouse pointer to change POV
 	t_vec2f	camera;
-	char	turning;
-	char	walking;
+	union
+	{
+		struct
+		{
+			char	turning: 2;
+			char	walking: 2;
+			char	strafing: 2;
+		};
+		unsigned char	moving;
+	};
 };
 
 struct s_ray
@@ -106,11 +114,11 @@ int		grid_stretch_lines(char **grid);
 int		grid_wall_check(char **grid);
 
 void	cube_render(t_cube *cube);
+void	render_minimap(t_cube *cube);
+void	render_texture(t_ray *ray, t_cube *cube, int x);
 void	ray_init_dda(t_ray *ray, t_player *player, int x);
 void	ray_perform_dda(t_ray *ray, t_cube *cube);
 void	ray_find_drawing_limits(t_ray *ray);
-void	cube_render(t_cube *cube);
-void	render_minimap(t_cube *cube);
 
 void	cube_put_image(t_cube *cube);
 int		cube_error(char *__message);

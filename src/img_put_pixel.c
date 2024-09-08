@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:14:10 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/21 00:06:26 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:03:08 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ inline t_point	point(int x, int y)
 	return ((t_point){x, y});
 }
 
-void	img_put_pixel(t_img *img, const long y, const long x, const int colour)
+void	img_put_pixel(register t_img *img, register long y, register long x, \
+		register int colour)
 {
 	const unsigned long	pixel_pos = ((y * img->width) + x) * sizeof(int);
 
@@ -26,7 +27,7 @@ void	img_put_pixel(t_img *img, const long y, const long x, const int colour)
 		*(int *)(img->pixels + pixel_pos) = colour;
 }
 
-int	img_get_pixel(t_img *img, const long y, const long x)
+int	img_get_pixel(register t_img *img, register long y, register long x)
 {
 	const unsigned long	pixel_pos = ((y * img->width) + x) * sizeof(int);
 

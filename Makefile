@@ -31,7 +31,7 @@ OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
 	   ft_str_endswith.c \
 	   \
 	   event.c \
-	   event_player.c \
+	   moving.c \
 	   render.c \
 	   minimap.c \
 	   img_put_pixel.c \
@@ -39,6 +39,7 @@ OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
 	   ray.c \
 	   \
 	   vec2f.c \
+	   render_texture.c \
 	   )
 DEPS = ${OBJS:.o=.d}
 LIB_FT = ${LFT_DIR}/libft.a

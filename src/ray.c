@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:08:58 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/09/04 16:41:33 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/09/08 20:37:06 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,23 @@ void	ray_perform_dda(t_ray *ray, t_cube *cube)
 		ray_take_step(ray, &map_x, &map_y);
 		hit = (cube->map.cells[map_y][map_x] == WALL);
 	}
+	if (ray->side == EAST || ray->side == WEST)
+		ray->perpwalldist = ray->side_dist.x - ray->deltadist.x;
+	else
+		ray->perpwalldist = ray->side_dist.y - ray->deltadist.y;
+	if (ray->perpwalldist < 0.f)
+		ray->perpwalldist = 0.f;
 }
 
 void	ray_find_drawing_limits(t_ray *ray)
 {
 	int	line_height;
 
-	if (ray->side == EAST || ray->side == WEST)
-		ray->perpwalldist = ray->side_dist.x - ray->deltadist.x;
-	else
-		ray->perpwalldist = ray->side_dist.y - ray->deltadist.y;
-	if (ray->perpwalldist < 1.f)
-		ray->perpwalldist = 1.f;
-	line_height = (SCREEN_HEIGHT / ray->perpwalldist);
-	ray->drawstart = (SCREEN_HEIGHT - line_height) / 2;// - player.dirZ;
+	line_height = (SCREEN_HEIGHT / ray->perpwalldist) * 0.5f;
+	ray->drawstart = (SCREEN_HEIGHT - line_height) / 2;
 	if (ray->drawstart < 0)
 		ray->drawstart = 0;
-	ray->drawend = SCREEN_HEIGHT - ray->drawstart - 1;
+	ray->drawend = SCREEN_HEIGHT - ray->drawstart;
 }
 
 static void	ray_take_step(t_ray *ray, int *map_x, int *map_y)

@@ -6,7 +6,7 @@
 /*   By: omougel <omougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 14:59:03 by omougel           #+#    #+#             */
-/*   Updated: 2024/08/28 17:01:16 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/09/08 20:37:49 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,15 @@ static int	cube_init_mlx(t_cube *cube)
 {
 	cube->mlx.ptr = mlx_init();
 	if (cube->mlx.ptr == NULL)
-	{
-		perror("Problem with mlx");
-		return (0);
-	}
+		return (perror("Problem with mlx"), 0);
 	cube->mlx.win = mlx_new_window(cube->mlx.ptr, \
 			SCREEN_WIDTH, SCREEN_HEIGHT, NAME);
 	if (cube->mlx.win == NULL)
-	{
-		perror("Problem with mlx");
-		return (0);
-	}
+		return (perror("Problem with mlx"), 0);
 	cube->mlx.img.ptr = mlx_new_image(cube->mlx.ptr, \
 			SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (cube->mlx.img.ptr == NULL)
-	{
-		perror("Problem with mlx");
-		return (0);
-	}
+		return (perror("Problem with mlx"), 0);
 	cube->mlx.img.width = SCREEN_WIDTH;
 	cube->mlx.img.height = SCREEN_HEIGHT;
 	cube->mlx.img.pixels = mlx_get_data_addr(cube->mlx.img.ptr, \
