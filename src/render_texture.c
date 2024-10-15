@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 20:33:16 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/09/08 20:36:02 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/09/21 05:59:24 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,22 @@
 #include <math.h>
 
 static t_img	*find_texture(t_cube *cube, t_hitside side);
-static int		init_tex_x(t_ray *ray, t_cube *cube, t_img *texture);
+static int		find_tex_x(t_ray *ray, t_cube *cube, t_img *texture);
 
 void	render_texture(t_ray *ray, t_cube *cube, int x)
 {
-	t_img	*texture;
-	float	y_ratio;
-	float	y_pos_in_wall;
-	int		tex_x;
-	int		y;
+	t_img *const	texture = find_texture(cube, ray->side);
+	float const		y_ratio = (float)texture->height / ray->wall_height;
+	int const		tex_x = find_tex_x(ray, cube, texture);
+	float			y_pos_in_wall;
+	int				y;
 
-	texture = find_texture(cube, ray->side);
-	y_ratio = (float)texture->height / (ray->drawend - ray->drawstart);
-	tex_x = init_tex_x(ray, cube, texture);
-	y_pos_in_wall = 0;
-	y = ray->drawstart;
-	while (y < ray->drawend)
+	y_pos_in_wall = ft_max(0, ray->wall_height - SCREEN_HEIGHT) * y_ratio * 0.5;
+	y = ray->drawstart - 1;
+	while (++y < ray->drawend)
 	{
 		img_put_pixel(&cube->mlx.img, y, x, \
 				img_get_pixel(texture, floorf(y_pos_in_wall), tex_x));
-		y += 1;
 		y_pos_in_wall += y_ratio;
 	}
 }
@@ -50,7 +46,7 @@ static t_img	*find_texture(t_cube *cube, t_hitside side)
 	return (&cube->we_texture);
 }
 
-static int	init_tex_x(t_ray *ray, t_cube *cube, t_img *texture)
+static int	find_tex_x(t_ray *ray, t_cube *cube, t_img *texture)
 {
 	float	wall_x;
 	int		tex_x;

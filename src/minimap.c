@@ -5,93 +5,73 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/11 17:45:51 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/09/08 20:43:07 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/10/02 16:26:36 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/10/02 18:24:28 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include "ft_basics.h"
 #include "img_put_pixel.h"
-#include "vec2f.h"
 
-static void	setup(t_cube *cube, t_point *offset, int *cell_size);
-static void	put_cell(t_cube *cube, t_point cell, t_point offset, int size);
-static int	cell_colour(t_cube *cube, int y, int x);
-static void	put_player(t_cube *cube, t_point offset, int size);
+static void	put_cells(t_cube *cube, t_vec2f player, int map_sz, float cell_sz);
+static void	put_cell_pixel(t_cube *cube, t_point pixel_pos, t_point cell_pos);
+static void	put_player(t_cube *cube, float player_padding, float cell_size);
 
 void	render_minimap(t_cube *cube)
 {
-	t_point		offset;
-	int			cell_size;
-	t_point		cell;
+	int const	map_size = ft_min(SCREEN_WIDTH, SCREEN_HEIGHT) / 4;
+	float const	cell_size = map_size / (float)MINIMAP_SIZE;
+	float const	player_padding = MINIMAP_SIZE / 2.;
+	t_vec2f		player;
 
-	cell_size = MINIMAP_SIZE / 2;
-	setup(cube, &offset, &cell_size);
-	cell.y = 0;
-	while (cell.y < MINIMAP_SIZE)
+	player.x = cube->player.pos.x - player_padding;
+	player.y = cube->player.pos.y - player_padding;
+	put_cells(cube, player, map_size, cell_size);
+	put_player(cube, player_padding, cell_size);
+}
+
+static void	put_cells(t_cube *cube, t_vec2f player, int map_sz, float cell_sz)
+{
+	t_point	pixel;
+	t_point	cell;
+
+	pixel.y = -1;
+	while (++pixel.y < map_sz)
 	{
-		cell.x = -1;
-		while (++cell.x < MINIMAP_SIZE)
-			put_cell(cube, cell, offset, cell_size);
-		cell.y += 1;
+		pixel.x = -1;
+		while (++pixel.x < map_sz)
+		{
+			cell.y = player.y + (pixel.y / cell_sz);
+			cell.x = player.x + (pixel.x / cell_sz);
+			put_cell_pixel(cube, pixel, cell);
+		}
 	}
-	img_put_line(&cube->mlx.img, point(MINIMAP_SIZE * cell_size, 0), \
-			point(MINIMAP_SIZE * cell_size, MINIMAP_SIZE * cell_size), \
-			0xffffff);
-	img_put_line(&cube->mlx.img, point(0, MINIMAP_SIZE * cell_size), \
-			point(MINIMAP_SIZE * cell_size, MINIMAP_SIZE * cell_size), \
-			0xffffff);
-	put_player(cube, offset, cell_size);
 }
 
-static void	setup(t_cube *cube, t_point *offset, int *cell_size)
+static void	put_cell_pixel(t_cube *cube, t_point pixel_pos, t_point cell_pos)
 {
-	float const		max_map_size = ft_min(SCREEN_HEIGHT, SCREEN_WIDTH) / 4.;
-	t_point const	p = point(cube->player.pos.x, cube->player.pos.y);
-	int const		cell_padding = *cell_size;
+	int	colour;
 
-	*offset = point(ft_max(p.x - cell_padding, 0), \
-			ft_max(p.y - cell_padding, 0));
-	*cell_size = max_map_size / (cell_padding * 2 + 1);
+	colour = 0;
+	if (cell_pos.y >= 0 && cell_pos.y < cube->map.height && \
+			cell_pos.x >= 0 && cell_pos.x < cube->map.width && \
+			cube->map.cells[cell_pos.y][cell_pos.x] == WALL)
+		colour = 0xffffff;
+	img_put_pixel(&cube->mlx.img, \
+			MINIMAP_POS_Y + pixel_pos.y, \
+			MINIMAP_POS_X + pixel_pos.x, \
+			colour);
 }
 
-static void	put_cell(t_cube *cube, t_point cell, t_point offset, int size)
+static void	put_player(t_cube *cube, float player_padding, float cell_size)
 {
-	t_point const	top_left = {cell.x * size, cell.y * size};
-	t_point const	bottom_right = {top_left.x + size, top_left.y + size};
-	int const		colour = cell_colour(cube, cell.y + offset.y, \
-			cell.x + offset.x);
+	t_point	top_left;
+	t_point	bot_right;
 
-	img_put_rect(&cube->mlx.img, top_left, bottom_right, colour);
-}
-
-static int	cell_colour(t_cube *cube, int y, int x)
-{
-	if (y >= cube->map.height || x >= cube->map.width)
-		return (0);
-	return ((cube->map.cells[y][x] == WALL) * 0xffffff);
-}
-
-static void	put_player(t_cube *cube, t_point offset, int size)
-{
-	const float	px = (cube->player.pos.x - offset.x) * size;
-	const float	py = (cube->player.pos.y - offset.y) * size;
-	t_point		p;
-	t_point		p2;
-
-	img_put_rect(&cube->mlx.img, \
-			point(px - size / 4., py - size / 4.), \
-			point(px + size / 4., py + size / 4.), \
-			0x00ff00);
-	p = point(px + cube->player.dir.x * size, py + cube->player.dir.y * size);
-	img_put_line(&cube->mlx.img, \
-			point(px, py), \
-			p, \
-			0xff0000);
-	p.x = p.x - (cube->player.camera.x * size / 2);
-	p.y = p.y - (cube->player.camera.y * size / 2);
-	p2 = point(p.x + cube->player.camera.x * size, \
-			p.y + cube->player.camera.y * size);
-	img_put_line(&cube->mlx.img, p, p2, 0xf0f0f0);
+	top_left.x = MINIMAP_POS_X + (player_padding - 0.2) * cell_size;
+	top_left.y = MINIMAP_POS_Y + (player_padding - 0.2) * cell_size;
+	bot_right.x = MINIMAP_POS_X + (player_padding + 0.2) * cell_size;
+	bot_right.y = MINIMAP_POS_Y + (player_padding + 0.2) * cell_size;
+	img_put_rect(&cube->mlx.img, top_left, bot_right, 0x00cc00);
 }

@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:05:11 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/09/08 20:40:38 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:04:34 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@
 # define RAY_WIDTH 1
 # define SCREEN_WIDTH 1080.f
 # define SCREEN_HEIGHT 720.f
-# define FOV 1.f
 # define CAMERA_PLANE_WIDTH SCREEN_WIDTH
 # define MINIMAP_SIZE 15
+# define MINIMAP_POS_X 0
+# define MINIMAP_POS_Y 0
 # define NAME "Cub3D"
 # define PI 3.141592
 
@@ -53,9 +54,9 @@ struct	s_player
 	{
 		struct
 		{
-			char	turning: 2;
-			char	walking: 2;
-			char	strafing: 2;
+			int	turning: 2;
+			int	walking: 2;
+			int	strafing: 2;
 		};
 		unsigned char	moving;
 	};
@@ -71,6 +72,7 @@ struct s_ray
 	t_hitside	side;
 	int			drawstart;
 	int			drawend;
+	int			wall_height;
 };
 
 struct	s_map

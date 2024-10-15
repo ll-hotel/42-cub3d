@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:08:58 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/09/08 20:37:06 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/09/21 05:53:17 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,14 @@ void	ray_perform_dda(t_ray *ray, t_cube *cube)
 		ray->perpwalldist = ray->side_dist.x - ray->deltadist.x;
 	else
 		ray->perpwalldist = ray->side_dist.y - ray->deltadist.y;
-	if (ray->perpwalldist < 0.f)
-		ray->perpwalldist = 0.f;
+	if (ray->perpwalldist <= 0.f)
+		ray->perpwalldist = 0.0000000000000000000001f;
+	ray->wall_height = (SCREEN_HEIGHT / ray->perpwalldist) * 0.5f;
 }
 
 void	ray_find_drawing_limits(t_ray *ray)
 {
-	int	line_height;
-
-	line_height = (SCREEN_HEIGHT / ray->perpwalldist) * 0.5f;
-	ray->drawstart = (SCREEN_HEIGHT - line_height) / 2;
+	ray->drawstart = (SCREEN_HEIGHT - ray->wall_height) * 0.5;
 	if (ray->drawstart < 0)
 		ray->drawstart = 0;
 	ray->drawend = SCREEN_HEIGHT - ray->drawstart;

@@ -6,7 +6,7 @@
 /*   By: omougel <omougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:19:32 by omougel           #+#    #+#             */
-/*   Updated: 2024/09/08 19:55:46 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:18:31 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	loop_hook(t_cube *cube)
 		move_player(cube, &cube->player);
 		cube_render(cube);
 	}
-	usleep(50000);
+	usleep(8000);
 	return (0);
 }
 

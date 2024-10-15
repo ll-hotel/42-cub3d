@@ -6,7 +6,7 @@
 /*   By: omougel <omougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 14:59:03 by omougel           #+#    #+#             */
-/*   Updated: 2024/09/08 20:37:49 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/09/21 06:03:54 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static float	sign_of(float x);
 
 int	init_cube(t_cube *cube, const char *file_name)
 {
+	float const	fov = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
+
 	if (!cube_init_mlx(cube) || !cube_parse_file(cube, file_name))
 	{
 		destroy_cube(cube);
@@ -30,9 +32,9 @@ int	init_cube(t_cube *cube, const char *file_name)
 	cube->player.dir.x = cosf(cube->player.axis);
 	cube->player.dir.y = -sinf(cube->player.axis);
 	if (roundf(cube->player.dir.x) == 0)
-		cube->player.camera.x = FOV * sign_of(cube->player.dir.y);
+		cube->player.camera.x = fov * sign_of(cube->player.dir.y);
 	else if (roundf(cube->player.dir.y) == 0)
-		cube->player.camera.y = FOV * sign_of(cube->player.dir.x);
+		cube->player.camera.y = fov * sign_of(cube->player.dir.x);
 	return (1);
 }
 
