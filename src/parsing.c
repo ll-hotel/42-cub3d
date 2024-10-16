@@ -6,12 +6,12 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:03:07 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/03 19:26:26 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:47:30 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include "libft.h"
+#include "ft_dprintf.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <stdlib.h>

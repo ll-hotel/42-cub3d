@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:36:00 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/27 17:35:39 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:52:20 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static int	store_player(t_cube *cube, char **grid)
 		if (cell_is_player(grid[y][x]))
 			break ;
 	}
-	cube->player.pos.x = x;
-	cube->player.pos.y = y;
+	cube->player.pos.x = x + 0.5;
+	cube->player.pos.y = y + 0.5;
 	if (grid[y][x] == 'E')
 		cube->player.axis = 0;
 	else if (grid[y][x] == 'N')

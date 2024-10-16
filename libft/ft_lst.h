@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst.h                                              :+:      :+:    :+:   */
+/*   ft_lst.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 19:35:45 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/06/25 15:54:29 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:04:16 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LST_H
-# define LST_H
+#ifndef FT_LST_H
+# define FT_LST_H
 
 typedef struct s_lst_head	t_lst_head;
 typedef struct s_lst		t_lst;

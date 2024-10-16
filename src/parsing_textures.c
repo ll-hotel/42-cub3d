@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:35:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/09/08 20:32:45 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:50:48 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -73,22 +73,7 @@ static int	check_line_format(char *const line, const char *direction)
 
 static int	check_filename_format(char *const filename)
 {
-	char	*last_dot;
-	int		i;
-
-	last_dot = NULL;
-	i = -1;
-	while (filename[++i])
-		if (filename[i] == '.' && filename[i + 1] != '/')
-			last_dot = filename + i;
-	if (i < 1)
-		return (0);
-	if (!last_dot)
-	{
-		ft_dprintf(2, "Error\n%s: missing file extension\n", filename);
-		return (0);
-	}
-	if (ft_strncmp(last_dot, ".xpm", 5) != 0)
+	if (!ft_str_endswith(filename, ".xpm"))
 	{
 		ft_dprintf(2, "Error\n%s: wrong file extension " \
 				"(should be a .xpm file)\n", filename);

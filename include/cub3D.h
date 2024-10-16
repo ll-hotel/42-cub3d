@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:05:11 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/02 18:04:34 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:32:47 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # define RAY_WIDTH 1
 # define SCREEN_WIDTH 1080.f
 # define SCREEN_HEIGHT 720.f
-# define CAMERA_PLANE_WIDTH SCREEN_WIDTH
 # define MINIMAP_SIZE 15
 # define MINIMAP_POS_X 0
 # define MINIMAP_POS_Y 0

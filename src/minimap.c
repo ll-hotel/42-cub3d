@@ -6,13 +6,14 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 16:26:36 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/02 18:24:28 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:55:58 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include "ft_basics.h"
 #include "img_put_pixel.h"
+#include <math.h>
 
 static void	put_cells(t_cube *cube, t_vec2f player, int map_sz, float cell_sz);
 static void	put_cell_pixel(t_cube *cube, t_point pixel_pos, t_point cell_pos);
@@ -42,8 +43,8 @@ static void	put_cells(t_cube *cube, t_vec2f player, int map_sz, float cell_sz)
 		pixel.x = -1;
 		while (++pixel.x < map_sz)
 		{
-			cell.y = player.y + (pixel.y / cell_sz);
-			cell.x = player.x + (pixel.x / cell_sz);
+			cell.y = floor(player.y + (pixel.y / cell_sz));
+			cell.x = floor(player.x + (pixel.x / cell_sz));
 			put_cell_pixel(cube, pixel, cell);
 		}
 	}

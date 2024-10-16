@@ -6,12 +6,13 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 13:36:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/20 17:57:54 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:03:36 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BASICS_H
-# define BASICS_H
+#ifndef FT_BASICS_H
+# define FT_BASICS_H
+
 int				ft_atoi(const char *nptr);
 long			ft_atol(const char *nptr);
 void			ft_bzero(void *s, unsigned long n);
