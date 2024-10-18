@@ -6,13 +6,14 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:05:11 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/15 12:32:47 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:06:26 by omougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include <sys/types.h>
+# include <stdbool.h>
 # include "img_put_pixel.h"
 # include "vec2f.h"
 # define WALL '1'
@@ -49,6 +50,8 @@ struct	s_player
 	t_vec2f	dir;
 	float	axis;
 	t_vec2f	camera;
+	bool	use_pointer;
+	t_vec2f	mouse;
 	union
 	{
 		struct
@@ -126,4 +129,5 @@ int		cube_error(char *__message);
 int		ft_str_endswith(const char *s1, const char *s2);
 
 void	cube_loop(t_cube *cube);
+int		mouse_moving(t_cube *cube);
 #endif

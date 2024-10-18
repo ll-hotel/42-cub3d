@@ -6,7 +6,7 @@
 /*   By: omougel <omougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 14:59:03 by omougel           #+#    #+#             */
-/*   Updated: 2024/09/21 06:03:54 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:00:57 by omougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	init_cube(t_cube *cube, const char *file_name)
 		cube->player.camera.x = fov * sign_of(cube->player.dir.y);
 	else if (roundf(cube->player.dir.y) == 0)
 		cube->player.camera.y = fov * sign_of(cube->player.dir.x);
+	cube->player.use_pointer = false;
+	cube->player.mouse = vec2f(0, 0);
 	return (1);
 }
 
