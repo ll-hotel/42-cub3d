@@ -6,17 +6,16 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 01:38:28 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/16 19:32:10 by omougel          ###   ########.fr       */
+/*   Updated: 2024/10/21 17:04:44 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include "vec2f.h"
 #include "mlx.h"
-#include <stdio.h>
 #include <math.h>
 
-static void	turn_player(t_player *player);
+static void	turn_player(t_cube *cube, t_player *player);
 static void	walk_player(t_cube *cube, t_player *player);
 static void	strafe_player(t_cube *cube, t_player *player);
 
