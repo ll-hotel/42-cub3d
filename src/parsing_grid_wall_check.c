@@ -6,12 +6,12 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:32:43 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/07/30 00:00:39 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:21:10 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include "libft.h"
+#include "ft_dprintf.h"
 
 int			cell_is_valid(int c);
 int			cell_is_player(int c);
@@ -41,7 +41,7 @@ static int	check_walls(char **grid, u_long y, u_long x)
 	int			error;
 
 	error = 0;
-	if (cell != '0' && !cell_is_player(cell))
+	if (cell != FLOOR && !cell_is_player(cell))
 		return (1);
 	else if (y == 0 || x == 0 || !grid[y + 1] || !grid[y][x + 1])
 		error = 1;

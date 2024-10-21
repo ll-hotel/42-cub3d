@@ -75,7 +75,8 @@ OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
 	   ft_lst/lst_len.c \
 	   ft_lst/lst_map.c \
 	   ft_lst/lst_next.c \
-	   ft_ptr/ft_realloc.c	    \
+	   ft_ptr/ft_realloc.c \
+	   ft_ptr/ft_free2.c \
 	   )
 DEPS = ${OBJS:.o=.d}
 

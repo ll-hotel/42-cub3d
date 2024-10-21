@@ -6,12 +6,12 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:52:07 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/07/29 23:29:21 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:00:19 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
-#include "libft.h"
+#include "ft_dprintf.h"
+#include "parsing.h"
 
 int			cell_is_valid(int c);
 int			cell_is_player(int c);
@@ -36,7 +36,10 @@ int	grid_values_check(char **grid)
 		}
 	}
 	if (!found_player)
-		return (cube_error("Player not found in map"));
+	{
+		ft_dprintf(2, "Error\nCannot find player\n");
+		return (0);
+	}
 	return (1);
 }
 

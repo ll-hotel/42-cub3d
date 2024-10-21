@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 13:36:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/15 16:03:36 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:27:02 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ unsigned long	ft_strlen(const char *s);
 char			*ft_strjoin(const char *s1, const char *s2);
 char			*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 int				ft_strncmp(const char *s1, const char *s2, unsigned long n);
+int				ft_strcmp(const char *s1, const char *s2);
 char			*ft_strnstr(const char *big, const char *little,
 					unsigned long len);
 char			*ft_strrchr(const char *s, int c);

@@ -6,95 +6,31 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:21:42 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/11 18:34:44 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:26:05 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
-#include "libft.h"
+#include "ft_dprintf.h"
+#include "parsing.h"
 
-static int	check_founds(char *f_colour, char *c_colour);
-static int	check(char *colour);
-static int	check_for_rgb_value(char *value);
-static int	store_colour(char *colour);
-
-int	parsing_colours(t_cube *cube, char **lines)
+int	parsing_colours(t_cube *cube, t_line *lines)
 {
-	char *const	f_colour = find_line(lines, "F ");
-	char *const	c_colour = find_line(lines, "C ");
+	t_line *const	f_colour = find_line_by_key(lines, "F");
+	t_line *const	c_colour = find_line_by_key(lines, "C");
 
-	if (!check_founds(f_colour, c_colour))
-		return (0);
-	if (!check(f_colour) || !check(c_colour))
-		return (0);
-	cube->f_colour = store_colour(f_colour);
-	cube->c_colour = store_colour(c_colour);
-	return (1);
-}
-
-static int	check_founds(char *f_colour, char *c_colour)
-{
-	if (!f_colour)
-		return (cube_error("Could not find Floor colour\n"));
-	if (!c_colour)
-		return (cube_error("Could not find Ceiling colour\n"));
-	return (1);
-}
-
-static int	check(char *colour)
-{
-	int	digit_number;
-
-	digit_number = check_for_rgb_value(colour + 2);
-	if (!digit_number)
-		return (0);
-	colour += 2 + digit_number;
-	if (*colour != ',')
-		return (cube_error("Unexpected character in RGB value\n"));
-	digit_number = check_for_rgb_value(colour + 1);
-	if (!digit_number)
-		return (0);
-	colour += 1 + digit_number;
-	if (*colour != ',')
-		return (cube_error("Unexpected character in RGB value\n"));
-	digit_number = check_for_rgb_value(colour + 1);
-	if (!digit_number)
-		return (0);
-	colour += 1 + digit_number;
-	if (*colour != 0)
-		return (cube_error("Unexpected character after RGB value\n"));
-	return (1);
-}
-
-static int	check_for_rgb_value(char *value)
-{
-	int	digit_number;
-
-	digit_number = 0;
-	while (ft_isdigit(value[digit_number]))
-		digit_number += 1;
-	if ((0 == digit_number || digit_number > 3) || ft_atoi(value) > 255)
+	if (!f_colour->value)
+		ft_dprintf(2, "Error\nRGB value not found for floor colour!\n");
+	else if (!c_colour->value)
+		ft_dprintf(2, "Error\nRGB value not found for ceiling colour!\n");
+	else
 	{
-		value[digit_number] = 0;
-		ft_dprintf(2, "Error\nWrong value for RGB: %s\n", value);
-		return (0);
+		if (!is_rgb(f_colour->value))
+			ft_dprintf(2, "Error\nWrong floor colour value: expected RGB\n");
+		else if (!is_rgb(c_colour->value))
+			ft_dprintf(2, "Error\nWrong ceiling colour value: expected RGB\n");
+		else if (parse_rgb(f_colour->value, &cube->f_colour) && \
+				(parse_rgb(c_colour->value, &cube->c_colour)))
+			return (1);
 	}
-	return (digit_number);
-}
-
-static int	store_colour(char *colour)
-{
-	int	red;
-	int	green;
-	int	blue;
-
-	colour += 2;
-	red = ft_atoi(colour);
-	while (*colour != ',')
-		colour += 1;
-	green = ft_atoi(++colour);
-	while (*colour != ',')
-		colour += 1;
-	blue = ft_atoi(++colour);
-	return (red << 16 | green << 8 | blue);
+	return (0);
 }

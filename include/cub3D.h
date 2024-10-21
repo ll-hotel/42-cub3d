@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:05:11 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/16 19:06:26 by omougel          ###   ########.fr       */
+/*   Updated: 2024/10/20 16:27:15 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # define FLOOR '0'
 # define EMPTY ' '
 # define RAY_WIDTH 1
-# define SCREEN_WIDTH 1080.f
-# define SCREEN_HEIGHT 720.f
+# define SCREEN_WIDTH 1920.f
+# define SCREEN_HEIGHT 1080.f
 # define MINIMAP_SIZE 15
 # define MINIMAP_POS_X 0
 # define MINIMAP_POS_Y 0
@@ -108,14 +108,6 @@ int		init_cube(t_cube *cube, const char *file_name);
 void	destroy_cube(t_cube *cube);
 
 int		cube_parse_file(t_cube *cube, const char *file_name);
-int		read_file(const int fd, char ***lines);
-char	*find_line(char **lines, const char *prefix);
-int		parsing_textures(t_cube *cube, char **lines);
-int		parsing_colours(t_cube *cube, char **lines);
-int		parsing_map(t_cube *cube, char **lines);
-int		grid_values_check(char **grid);
-int		grid_stretch_lines(char **grid);
-int		grid_wall_check(char **grid);
 
 void	cube_render(t_cube *cube);
 void	render_minimap(t_cube *cube);
@@ -125,7 +117,6 @@ void	ray_perform_dda(t_ray *ray, t_cube *cube);
 void	ray_find_drawing_limits(t_ray *ray);
 
 void	cube_put_image(t_cube *cube);
-int		cube_error(char *__message);
 int		ft_str_endswith(const char *s1, const char *s2);
 
 void	cube_loop(t_cube *cube);

@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:36:05 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/08/20 17:51:13 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:09:41 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	vec_clear(t_vec *vec, void (*del)(void *))
 		{
 			i = -1;
 			while (++i < vec->size)
-				(*del)(*(void **)vec_at(vec, i));
+				(*del)(vec_at(vec, i));
 		}
 		ft_memset(vec->array, 0, vec->size * vec->elem_size);
 		free(vec->array);
+		vec->array = (void *)0;
 	}
-	vec->array = (void *)0;
 	vec->size = 0;
 	vec->allocated_size = 0;
 	vec->elem_size = 0;

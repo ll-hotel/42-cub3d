@@ -6,40 +6,69 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:36:00 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/15 12:52:20 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:59:07 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "ft_dprintf.h"
+#include "ft_ptr.h"
+#include "parsing.h"
 #include "ft_basics.h"
+#include <errno.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
 
 int			cell_is_player(int c);
+static char	**create_grid_from_lines(t_line *lines);
 static int	store_map_grid(t_cube *cube, char **grid);
 static int	store_player(t_cube *cube, char **grid);
 
-int	parsing_map(t_cube *cube, char **lines)
+int	parsing_map(t_cube *cube, t_line *lines)
 {
 	char	**grid;
-	char	cell;
 
-	(void)cube;
-	grid = lines;
-	cell = grid[0][0];
-	while (*grid && cell != EMPTY && cell != FLOOR && cell != WALL)
+	grid = create_grid_from_lines(lines);
+	if (grid == NULL)
+		return (0);
+	if (!grid_values_check(grid) || \
+			!grid_stretch_lines(grid) || \
+			!grid_wall_check(grid))
 	{
-		grid += 1;
-		cell = grid[0][0];
+		ft_free2((void **)grid, free);
+		return (0);
 	}
-	if (!grid)
-		return (cube_error("Could not find any map grid\n"));
-	if (!grid_values_check(grid))
-		return (0);
-	if (!grid_stretch_lines(grid))
-		return (0);
-	if (!grid_wall_check(grid))
-		return (0);
 	store_player(cube, grid);
 	return (store_map_grid(cube, grid));
+}
+
+static char	**create_grid_from_lines(t_line *lines)
+{
+	char	**grid;
+	int		size;
+	int		i;
+
+	i = -1;
+	while (lines[++i].ptr && !ft_isdigit(lines[i].key[0]))
+		if (lines[i].key[0] != 0 && ft_strcmp(lines[i].key, "NO") && \
+				ft_strcmp(lines[i].key, "SO") && ft_strcmp(lines[i].key, "EA") \
+				&& ft_strcmp(lines[i].key, "WE") && \
+				ft_strcmp(lines[i].key, "F") && ft_strcmp(lines[i].key, "C"))
+			return (ft_dprintf(2, "Error\nUnexpected key '%s'\n", \
+						lines[i].key), NULL);
+	size = 0;
+	while (lines[i + size].ptr != NULL)
+		size += 1;
+	grid = ft_calloc(size + 1, sizeof(*grid));
+	if (!grid)
+		return (NULL);
+	size = -1;
+	while (lines[i + ++size].ptr != NULL)
+	{
+		grid[size] = lines[i + size].ptr;
+		lines[i + size].ptr = NULL;
+	}
+	return (grid);
 }
 
 static int	store_player(t_cube *cube, char **grid)
@@ -73,23 +102,17 @@ static int	store_player(t_cube *cube, char **grid)
 static int	store_map_grid(t_cube *cube, char **grid)
 {
 	u_long	grid_size;
-	int		len;
 
 	grid_size = 0;
-	while (grid[grid_size])
+	while (grid[grid_size] != NULL)
 		grid_size += 1;
-	cube->map.cells = ft_calloc(grid_size, sizeof(*cube->map.cells));
+	cube->map.cells = ft_calloc(grid_size + 1, sizeof(*cube->map.cells));
 	if (!cube->map.cells)
-		return (cube_error("Malloc failed\n"));
+		return (ft_dprintf(2, "Error\n%s\n", strerror(errno)), 0);
 	cube->map.height = grid_size;
-	cube->map.width = 0;
+	cube->map.width = ft_strlen(grid[0]);
 	while (grid_size-- > 0)
-	{
 		cube->map.cells[grid_size] = grid[grid_size];
-		len = ft_strlen(grid[grid_size]);
-		if (len > cube->map.width)
-			cube->map.width = len;
-		grid[grid_size] = 0;
-	}
+	free(grid);
 	return (1);
 }

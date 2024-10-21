@@ -22,6 +22,7 @@ OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
 	   parsing_utils.c \
 	   parsing_textures.c \
 	   parsing_colours.c \
+	   parse_rgb.c \
 	   parsing_map.c \
 	   parsing_grid_values_check.c \
 	   parsing_grid_stretch_lines.c \

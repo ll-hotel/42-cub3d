@@ -6,82 +6,87 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:47:41 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/04/24 17:37:27 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:24:39 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_basics.h"
+#include "ft_ptr.h"
 #include <stdlib.h>
 
-static unsigned long	_sep_count(const char *str, char c)
-{
-	unsigned long	r;
-	unsigned long	j;
-
-	r = 0;
-	j = 0;
-	while (str[j])
-	{
-		while (str[j] && str[j] == c)
-			j += 1;
-		r += (str[j] != 0);
-		while (str[j] && str[j] != c)
-			j += 1;
-	}
-	return (r);
-}
-
-static void	_free_arr(char **arr, unsigned long i)
-{
-	unsigned long	j;
-
-	j = 0;
-	while (j <= i)
-		free(arr[j++]);
-	free(arr);
-}
-
-static unsigned long	_substr(const char *str, char c, char **arr, \
-		unsigned long i)
-{
-	unsigned long	j;
-
-	j = 0;
-	while (str[j] && str[j] != c)
-		j++;
-	arr[i] = malloc(sizeof(char) * (j + 1));
-	if (!arr[i])
-	{
-		_free_arr(arr, i);
-		return (0);
-	}
-	ft_strlcpy(arr[i], str, j + 1);
-	return (j);
-}
+static int	count_words(const char *str, char c);
+static int	wordlen(const char *str, int start, char c);
 
 char	**ft_split(const char *str, char c)
 {
-	const unsigned long	sep_count = _sep_count(str, c);
-	char				**arr;
-	unsigned long		i;
-	unsigned long		j;
-	unsigned long		offset;
+	int		words_num;
+	char	**words;
+	int		word_index;
+	int		word_len;
+	int		i;
 
-	if (!str)
+	if (str == NULL)
 		return (0);
-	arr = malloc((sep_count + 1) * sizeof(char *));
-	if (!arr)
+	words_num = count_words(str, c);
+	words = malloc((words_num + 1) * sizeof(*words));
+	if (words == NULL)
 		return (0);
 	i = 0;
-	offset = 0;
-	while (str[offset] && i < sep_count)
+	word_index = 0;
+	while (word_index < words_num)
 	{
-		while (str[offset] && str[offset] == c)
-			offset++;
-		j = _substr(str + offset, c, arr, i);
-		i += 1;
-		offset += j;
+		word_len = wordlen(str, i, c);
+		words[word_index] = ft_substr(str, i, word_len);
+		if (words[word_index] == NULL)
+			return (ft_free2((void **)words, free));
+		i += word_len;
+		word_index += 1;
 	}
-	arr[i] = 0;
-	return (arr);
+	words[words_num] = NULL;
+	return (words);
+}
+
+static int	skip_separators(const char *str, int start, char c)
+{
+	int	i;
+
+	if (str == NULL || c == 0)
+		return (0);
+	i = 0;
+	while (str[start + i] != 0 && str[start + i] == c)
+		i += 1;
+	return (i);
+}
+
+static int	wordlen(const char *str, int start, char c)
+{
+	int	i;
+
+	if (str == NULL)
+		return (0);
+	i = 0;
+	while (str[start + i] != 0 && str[start + i] != c)
+		i += 1;
+	return (i);
+}
+
+static int	count_words(const char *str, char c)
+{
+	int	counter;
+	int	i;
+
+	if (str == NULL)
+		return (-1);
+	if (c == 0)
+		return (1);
+	counter = 0;
+	i = 0;
+	while (str[i])
+	{
+		i += skip_separators(str, i, c);
+		if (str[i] != 0)
+			counter += 1;
+		i += wordlen(str, i, c);
+	}
+	return (counter);
 }
