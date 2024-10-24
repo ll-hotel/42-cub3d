@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
+/*   wall_collision.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 12:22:20 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/23 12:22:38 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/10/21 17:15:11 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/10/21 17:15:34 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	render_minimap(t_cube *cube)
+void	collision_correction(t_cube *cube, t_player *player, t_vec2f *step)
 {
 	(void)cube;
+	(void)player;
+	(void)step;
 }

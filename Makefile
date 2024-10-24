@@ -15,9 +15,15 @@ ifneq ("${DEBUG}", "")
 	CFLAGS := ${DEBUG} ${CFLAGS}
 endif
 
-OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
+FILES = cube_utils.c \
+	   event.c \
+	   ft_str_endswith.c \
+	   img_put_pixel.c \
+	   img_put_line.c \
 	   init.c \
 	   main.c \
+	   minimap.c \
+	   moving.c \
 	   parsing.c \
 	   parsing_utils.c \
 	   parsing_textures.c \
@@ -27,22 +33,19 @@ OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
 	   parsing_grid_values_check.c \
 	   parsing_grid_stretch_lines.c \
 	   parsing_grid_wall_check.c \
-	   read_file.c \
-	   cube_utils.c \
-	   ft_str_endswith.c \
-	   \
-	   event.c \
-	   moving.c \
-	   render.c \
-	   minimap.c \
-	   img_put_pixel.c \
-	   img_put_line.c \
 	   ray.c \
-	   \
-	   vec2f.c \
+	   read_file.c \
+	   render.c \
 	   render_texture.c \
-	   )
-DEPS = ${OBJS:.o=.d}
+	   vec2f.c \
+	   wall_collision.c
+OBJS = $(FILES:%.c=${OBJ_DIR}/%.o)
+
+BONUS_DIR = bonus
+BONUS_FILES = minimap.c wall_collision.c
+
+DEPS = $(OBJS:.o=.d)
+
 LIB_FT = ${LFT_DIR}/libft.a
 LIB_MLX = ${MLX_DIR}/libmlx_Linux.a
 
@@ -67,6 +70,13 @@ ${OBJ_DIR}/%.o: ${SRC_DIR}/%.c | ${OBJ_DIR}
 
 ${OBJ_DIR}:
 	mkdir -p $(sort $(dir ${OBJS}))
+
+.PHONY: bonus
+bonus:
+ifeq ("$(wildcard ${OBJ_DIR}/${BONUS_DIR})","")
+	mkdir -p ${OBJ_DIR}/${BONUS_DIR}
+endif
+	@make --no-print-directory FILES="$(filter-out ${BONUS_FILES},${FILES}) $(BONUS_FILES:%=${BONUS_DIR}/%)"
 
 .PHONY: clean
 clean:

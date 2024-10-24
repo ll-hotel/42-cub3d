@@ -6,15 +6,13 @@
 /*   By: omougel <omougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:19:32 by omougel           #+#    #+#             */
-/*   Updated: 2024/10/16 19:08:25 by omougel          ###   ########.fr       */
+/*   Updated: 2024/10/21 17:11:34 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include "mlx.h"
 #include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <X11/keysym.h>
 #include <X11/X.h>

@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:05:11 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/20 16:27:15 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:14:32 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,5 @@ int		ft_str_endswith(const char *s1, const char *s2);
 
 void	cube_loop(t_cube *cube);
 int		mouse_moving(t_cube *cube);
+void	collision_correction(t_cube *cube, t_player *player, t_vec2f *step);
 #endif
