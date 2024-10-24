@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:05:11 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/21 17:14:32 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:30:18 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 
 enum e_hitside
 {
-	NORTH,
-	SOUTH,
-	EAST,
-	WEST,
+	NORTH = 0,
+	SOUTH = 1,
+	WEST = 2,
+	EAST = 3,
 };
 
 typedef struct s_player	t_player;

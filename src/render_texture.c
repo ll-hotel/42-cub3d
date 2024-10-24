@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 20:33:16 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/15 16:02:25 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:51:28 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static int	find_tex_x(t_ray *ray, t_cube *cube, t_img *texture)
 		wall_x = (cube->player.pos.x - ray->perpwalldist * ray->dir.x);
 	wall_x = ft_absf(wall_x);
 	wall_x -= floorf(wall_x);
+	if (ray->side == NORTH || ray->side == EAST)
+		wall_x = 1.f - wall_x;
 	tex_x = floorf(wall_x * texture->width);
 	if (ray->side == EAST || ray->side == WEST)
 		tex_x = texture->width - tex_x - 1;

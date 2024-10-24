@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:21:42 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/20 17:26:05 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:35:14 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	parsing_colours(t_cube *cube, t_line *lines)
 	t_line *const	f_colour = find_line_by_key(lines, "F");
 	t_line *const	c_colour = find_line_by_key(lines, "C");
 
-	if (!f_colour->value)
+	if (!f_colour || !f_colour->value)
 		ft_dprintf(2, "Error\nRGB value not found for floor colour!\n");
-	else if (!c_colour->value)
+	else if (!c_colour || !c_colour->value)
 		ft_dprintf(2, "Error\nRGB value not found for ceiling colour!\n");
 	else
 	{

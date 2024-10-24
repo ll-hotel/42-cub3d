@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:38:31 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/20 16:57:55 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:41:26 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,6 @@ int	read_file(char const *file_name, t_line **lines)
 	return (1);
 }
 
-static int	bytes_are_valid(char const *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != 0)
-	{
-		if (!ft_isalnum(str[i]) && str[i] != ' ' && str[i] != ',')
-		{
-			ft_dprintf(2, "Error\nUnexpected character '%c' (%x)\n", \
-					str[i], str[i]);
-			return (0);
-		}
-		i += 1;
-	}
-	return (1);
-}
-
 static int	append_line(t_vec *file, char *str)
 {
 	t_line	line;
@@ -77,8 +59,6 @@ static int	append_line(t_vec *file, char *str)
 	if (newline)
 		*newline = 0;
 	line_from_str(&line, str);
-	if (!bytes_are_valid(line.key))
-		return (0);
 	if (vec_addback(file, &line) == NULL)
 	{
 		free(str);

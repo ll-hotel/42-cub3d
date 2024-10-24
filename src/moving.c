@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 01:38:28 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/21 17:14:52 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:30:35 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	turn_player(t_cube *cube, t_player *player)
 	int		new_x;
 	int		new_y;
 
-	coef = 0;
 	if (cube->player.use_pointer)
 	{
 		mlx_mouse_get_pos(cube->mlx.ptr, cube->mlx.win, &new_x, &new_y);
@@ -72,7 +71,7 @@ void	turn_player(t_cube *cube, t_player *player)
 			player->mouse.y = new_y;
 		}
 	}
-	else if (!cube->player.use_pointer)
+	else
 		coef = 0.2 * player->turning;
 	rotation(player, coef);
 }

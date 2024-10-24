@@ -6,7 +6,7 @@
 /*   By: omougel <omougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:19:32 by omougel           #+#    #+#             */
-/*   Updated: 2024/10/21 17:11:34 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:30:25 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static int	keypress_hook(int keysym, t_cube *cube)
 		cube->player.turning = (keysym == XK_Left) - (keysym == XK_Right);
 	else if (keysym == XK_w || keysym == XK_s)
 		cube->player.walking = (keysym == XK_w) - (keysym == XK_s);
-	else if (keysym == XK_a || keysym == XK_d)
-		cube->player.strafing = (keysym == XK_a) - (keysym == XK_d);
+	else if (keysym == 'a' || keysym == 'd')
+		cube->player.strafing = (keysym == 'a') - (keysym == 'd');
 	return (0);
 }
 
@@ -75,7 +75,6 @@ static int	loop_hook(t_cube *cube)
 		move_player(cube, &cube->player);
 		cube_render(cube);
 	}
-	usleep(8000);
 	return (0);
 }
 
