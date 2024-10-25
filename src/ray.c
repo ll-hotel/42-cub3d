@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:08:58 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/09/21 05:53:17 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:11:30 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ray_init_dda(t_ray *ray, t_player *player, int x)
 	const int	map_x = floorf(player->pos.x);
 	const int	map_y = floorf(player->pos.y);
 
+	ft_memset(ray, 0, sizeof(*ray));
 	ray->dir.x = -player->dir.x + player->camera.x * screen_ratio;
 	ray->dir.y = -player->dir.y + player->camera.y * screen_ratio;
 	ray->deltadist.x = ft_absf(1.f / ray->dir.x);
@@ -51,14 +52,18 @@ void	ray_perform_dda(t_ray *ray, t_cube *cube)
 	while (hit == 0)
 	{
 		ray_take_step(ray, &map_x, &map_y);
-		hit = (cube->map.cells[map_y][map_x] == WALL);
+		if (0 <= map_x && map_x < cube->map.width && \
+				0 <= map_y && map_y < cube->map.height)
+			hit = (cube->map.cells[map_y][map_x] == WALL);
+		else
+			hit = 1;
 	}
 	if (ray->side == EAST || ray->side == WEST)
 		ray->perpwalldist = ray->side_dist.x - ray->deltadist.x;
 	else
 		ray->perpwalldist = ray->side_dist.y - ray->deltadist.y;
 	if (ray->perpwalldist <= 0.f)
-		ray->perpwalldist = 0.0000000000000000000001f;
+		ray->perpwalldist = 0.001f;
 	ray->wall_height = (SCREEN_HEIGHT / ray->perpwalldist) * 0.5f;
 }
 
