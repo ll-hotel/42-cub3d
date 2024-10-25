@@ -23,6 +23,7 @@ FILES = cube_utils.c \
 	   init.c \
 	   main.c \
 	   minimap.c \
+	   mouse.c \
 	   moving.c \
 	   parsing.c \
 	   parsing_utils.c \
@@ -42,7 +43,7 @@ FILES = cube_utils.c \
 OBJS = $(FILES:%.c=${OBJ_DIR}/%.o)
 
 BONUS_DIR = bonus
-BONUS_FILES = minimap.c wall_collision.c
+BONUS_FILES = minimap.c mouse.c wall_collision.c
 
 DEPS = $(OBJS:.o=.d)
 

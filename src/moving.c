@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 01:38:28 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/24 13:30:35 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:32:57 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,27 +50,9 @@ void	rotation(t_player *player, float coef)
 void	turn_player(t_cube *cube, t_player *player)
 {
 	float	coef;
-	int		new_x;
-	int		new_y;
 
 	if (cube->player.use_pointer)
-	{
-		mlx_mouse_get_pos(cube->mlx.ptr, cube->mlx.win, &new_x, &new_y);
-		coef = (player->mouse.x - new_x) / 500;
-		if (new_x > SCREEN_WIDTH || new_x < 5 || new_y > SCREEN_HEIGHT
-			|| new_y < 5)
-		{
-			mlx_mouse_move(cube->mlx.ptr, cube->mlx.win, SCREEN_WIDTH / 2,
-				SCREEN_HEIGHT / 2);
-			player->mouse.x = SCREEN_WIDTH / 2;
-			player->mouse.y = SCREEN_HEIGHT / 2;
-		}
-		else
-		{
-			player->mouse.x = new_x;
-			player->mouse.y = new_y;
-		}
-	}
+		coef = turn_with_mouse(cube, player);
 	else
 		coef = 0.2 * player->turning;
 	rotation(player, coef);

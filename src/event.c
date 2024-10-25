@@ -6,7 +6,7 @@
 /*   By: omougel <omougel@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 15:19:32 by omougel           #+#    #+#             */
-/*   Updated: 2024/10/24 13:30:25 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:37:40 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@
 #include <X11/keysym.h>
 #include <X11/X.h>
 
-extern void	move_player(t_cube *cube, t_player *player);
 static int	keypress_hook(int keysym, t_cube *cube);
 static int	keyrelease_hook(int keysym, t_cube *cube);
 static int	loop_hook(t_cube *cube);
-static int	mouse_handler(int Button, int x, int y, t_cube *cube);
 
 void	cube_loop(t_cube *cube)
 {
@@ -33,25 +31,6 @@ void	cube_loop(t_cube *cube)
 	mlx_hook(cube->mlx.win, DestroyNotify, 0, mlx_loop_end, cube->mlx.ptr);
 	mlx_mouse_hook(cube->mlx.win, mouse_handler, cube);
 	mlx_loop(cube->mlx.ptr);
-}
-
-static int	mouse_handler(int Button, int x, int y, t_cube *cube)
-{
-	if (Button == Button1)
-	{
-		mlx_mouse_hide(cube->mlx.ptr, cube->mlx.win);
-		cube->player.use_pointer = true;
-		cube->player.turning = 1;
-		cube->player.mouse.x = x;
-		cube->player.mouse.y = y;
-	}
-	else if (Button == Button3)
-	{
-		mlx_mouse_show(cube->mlx.ptr, cube->mlx.win);
-		cube->player.use_pointer = false;
-		cube->player.turning = 0;
-	}
-	return (0);
 }
 
 static int	keypress_hook(int keysym, t_cube *cube)

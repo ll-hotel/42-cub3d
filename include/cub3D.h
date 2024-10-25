@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:05:11 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/24 13:30:18 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:40:23 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,20 +106,19 @@ struct	s_cube
 
 int		init_cube(t_cube *cube, const char *file_name);
 void	destroy_cube(t_cube *cube);
-
 int		cube_parse_file(t_cube *cube, const char *file_name);
-
+void	cube_loop(t_cube *cube);
 void	cube_render(t_cube *cube);
+void	move_player(t_cube *cube, t_player *player);
 void	render_minimap(t_cube *cube);
 void	render_texture(t_ray *ray, t_cube *cube, int x);
 void	ray_init_dda(t_ray *ray, t_player *player, int x);
 void	ray_perform_dda(t_ray *ray, t_cube *cube);
 void	ray_find_drawing_limits(t_ray *ray);
-
 void	cube_put_image(t_cube *cube);
 int		ft_str_endswith(const char *s1, const char *s2);
-
-void	cube_loop(t_cube *cube);
-int		mouse_moving(t_cube *cube);
+/* BONUS */
 void	collision_correction(t_cube *cube, t_player *player, t_vec2f *step);
+int		mouse_handler(int button, int x, int y, t_cube *cube);
+float	turn_with_mouse(t_cube *cube, t_player *player);
 #endif
