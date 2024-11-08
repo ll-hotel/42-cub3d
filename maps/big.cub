@@ -1,7 +1,7 @@
-NO ./brick_2.xpm
-SO ./brick_2.xpm
-WE ./brick_2.xpm
-EA ./brick_2.xpm
+NO textures/minecraft/stone.xpm
+SO textures/minecraft/cobblestone.xpm
+WE textures/minecraft/mossy-cobblestone.xpm
+EA textures/minecraft/diorite.xpm
 F 220,100,0
 C 225,30,0
 

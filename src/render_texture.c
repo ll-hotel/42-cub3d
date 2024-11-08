@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 20:33:16 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/23 13:51:28 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:28:21 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ void	render_texture(t_ray *ray, t_cube *cube, int x)
 	int				y;
 
 	y_pos_in_wall = ft_max(0, ray->wall_height - SCREEN_HEIGHT) * y_ratio * 0.5;
-	if (ray->perpwalldist > 32)
-	{
-		img_put_rect(&cube->mlx.img, point(x, ray->drawstart), \
-				point(x + RAY_WIDTH, ray->drawend), 0x888888);
-		return ;
-	}
 	y = ray->drawstart - 1;
 	while (++y < ray->drawend)
 	{

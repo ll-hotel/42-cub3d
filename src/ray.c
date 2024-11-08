@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:08:58 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/25 13:11:30 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:29:08 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ray_find_drawing_limits(t_ray *ray)
 	ray->drawstart = (SCREEN_HEIGHT - ray->wall_height) * 0.5;
 	if (ray->drawstart < 0)
 		ray->drawstart = 0;
-	ray->drawend = SCREEN_HEIGHT - ray->drawstart;
+	ray->drawend = SCREEN_HEIGHT - ray->drawstart - 1;
 }
 
 static void	ray_take_step(t_ray *ray, int *map_x, int *map_y)
