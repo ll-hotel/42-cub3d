@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 16:26:36 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/15 12:55:58 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:48:37 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,17 @@ static void	put_cell_pixel(t_cube *cube, t_point pixel_pos, t_point cell_pos)
 
 static void	put_player(t_cube *cube, float player_padding, float cell_size)
 {
-	t_point	top_left;
-	t_point	bot_right;
+	t_point	a;
+	t_point	b;
 
-	top_left.x = MINIMAP_POS_X + (player_padding - 0.2) * cell_size;
-	top_left.y = MINIMAP_POS_Y + (player_padding - 0.2) * cell_size;
-	bot_right.x = MINIMAP_POS_X + (player_padding + 0.2) * cell_size;
-	bot_right.y = MINIMAP_POS_Y + (player_padding + 0.2) * cell_size;
-	img_put_rect(&cube->mlx.img, top_left, bot_right, 0x00cc00);
+	a.x = MINIMAP_POS_X + player_padding * cell_size;
+	a.y = MINIMAP_POS_Y + player_padding * cell_size;
+	b.x = a.x + cube->player.dir.x * cell_size;
+	b.y = a.y + cube->player.dir.y * cell_size;
+	img_put_line(&cube->mlx.img, a, b, 0xff0f0f);
+	a.x = MINIMAP_POS_X + (player_padding - 0.2) * cell_size;
+	a.y = MINIMAP_POS_Y + (player_padding - 0.2) * cell_size;
+	b.x = MINIMAP_POS_X + (player_padding + 0.2) * cell_size;
+	b.y = MINIMAP_POS_Y + (player_padding + 0.2) * cell_size;
+	img_put_rect(&cube->mlx.img, a, b, 0x00cc00);
 }

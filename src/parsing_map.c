@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:36:00 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/22 12:58:41 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:47:59 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static int	store_player(t_cube *cube, char **grid)
 	ulong	x;
 
 	y = -1;
+	x = 0;
 	while (grid[++y])
 	{
 		x = 0;
