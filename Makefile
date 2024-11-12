@@ -42,7 +42,6 @@ FILES = cube_utils.c \
 	   wall_collision.c
 OBJS = $(FILES:%.c=${OBJ_DIR}/%.o)
 
-BONUS_DIR = bonus
 BONUS_FILES = minimap.c mouse.c wall_collision.c
 
 DEPS = $(OBJS:.o=.d)
@@ -51,6 +50,7 @@ LIB_FT = ${LFT_DIR}/libft.a
 LIB_MLX = ${MLX_DIR}/libmlx_Linux.a
 
 NAME = cub3D
+NAME_BONUS := ${NAME}_bonus
 
 .PHONY: all
 all: ${NAME}
@@ -73,11 +73,10 @@ ${OBJ_DIR}:
 	mkdir -p $(sort $(dir ${OBJS}))
 
 .PHONY: bonus
-bonus:
-ifeq ("$(wildcard ${OBJ_DIR}/${BONUS_DIR})","")
-	mkdir -p ${OBJ_DIR}/${BONUS_DIR}
-endif
-	@make --no-print-directory FILES="$(filter-out ${BONUS_FILES},${FILES}) $(BONUS_FILES:%=${BONUS_DIR}/%)"
+bonus: ${NAME_BONUS}
+
+${NAME_BONUS}: $(patsubst %.c,${OBJ_DIR}/%.o,$(filter-out ${BONUS_FILES},${FILES}) $(BONUS_FILES:.c=_bonus.c)) | ${LIB_FT} ${LIB_MLX}
+	${CC} ${CFLAGS} ${IFLAGS} ${DFLAGS} -o $@ $^ ${LFLAGS}
 
 .PHONY: clean
 clean:
@@ -88,6 +87,7 @@ clean:
 .PHONY: fclean
 fclean: clean
 	@make --no-print-directory -C ${LFT_DIR} fclean
+	rm -f ${NAME_BONUS}
 	rm -f ${NAME}
 
 .PHONY: re
