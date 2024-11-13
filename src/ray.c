@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:08:58 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/11/08 13:29:08 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:41:53 by omougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ static void	ray_take_step(t_ray *ray, int *map_x, int *map_y)
 	{
 		ray->side_dist.x += ray->deltadist.x;
 		*map_x += ray->step.x;
-		ray->side = WEST;
+		ray->side = EAST;
 		if (ray->step.x > 0)
-			ray->side = EAST;
+			ray->side = WEST;
 	}
 	else
 	{

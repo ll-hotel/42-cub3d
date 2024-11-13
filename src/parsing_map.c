@@ -91,11 +91,11 @@ static int	store_player(t_cube *cube, char **grid)
 	if (grid[y][x] == 'E')
 		cube->player.axis = 0;
 	else if (grid[y][x] == 'N')
-		cube->player.axis = PI * 1.5;
+		cube->player.axis = PI * 0.5;
 	else if (grid[y][x] == 'W')
 		cube->player.axis = PI;
 	else if (grid[y][x] == 'S')
-		cube->player.axis = PI * 0.5;
+		cube->player.axis = PI * 1.5;
 	grid[y][x] = FLOOR;
 	return (1);
 }

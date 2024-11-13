@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 20:33:16 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/11/08 13:28:21 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:53:02 by omougel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,5 @@ static int	find_tex_x(t_ray *ray, t_cube *cube, t_img *texture)
 	if (ray->side == NORTH || ray->side == EAST)
 		wall_x = 1.f - wall_x;
 	tex_x = floorf(wall_x * texture->width);
-	if (ray->side == EAST || ray->side == WEST)
-		tex_x = texture->width - tex_x - 1;
 	return (tex_x);
 }
