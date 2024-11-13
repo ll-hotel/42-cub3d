@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:03:44 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/20 17:35:08 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/11/13 01:46:16 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static int	is_valid_red(char const *str, int *size)
 	num_len = 0;
 	while (ft_isdigit(str[offset + num_len]))
 		num_len++;
+	if (num_len > 3)
+		return (0);
 	offset += num_len;
 	offset += count_spaces(str, offset);
 	if (str[offset] != ',')
@@ -71,6 +73,8 @@ static int	is_valid_green(char const *str, int *size)
 	num_len = 0;
 	while (ft_isdigit(str[offset + num_len]))
 		num_len++;
+	if (num_len > 3)
+		return (0);
 	offset += num_len;
 	offset += count_spaces(str, offset);
 	if (str[offset] != ',')
@@ -88,6 +92,8 @@ static int	is_valid_blue(char const *str)
 	num_len = 0;
 	while (ft_isdigit(str[offset + num_len]))
 		num_len++;
+	if (num_len > 3)
+		return (0);
 	offset += num_len;
 	offset += count_spaces(str, offset);
 	if (str[offset] != 0)
