@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dprintf_buffer.c                                   :+:      :+:    :+:   */
+/*   ft_dprintf_buffer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dprintf_inner.h"
+#include "ft_dprintf_inner.h"
 
 int	ft_buffer_flush(t_buffer *buffer, int fd)
 {

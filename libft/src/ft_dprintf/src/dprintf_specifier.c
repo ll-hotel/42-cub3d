@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dprintf_specifier.c                                :+:      :+:    :+:   */
+/*   ft_dprintf_specifier.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dprintf_inner.h"
+#include "ft_dprintf_inner.h"
 
 static int	ft_worker(const char type, uint64_t arg, t_buffer *buffer);
 

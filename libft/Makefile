@@ -5,52 +5,52 @@ INC_DIR = include
 OBJ_DIR = .obj
 
 CFLAGS = -Wall -Wextra -Werror
-IFLAGS = -I.
+IFLAGS = -Iinclude/libft
 DFLAGS = -MMD -MP
 
 OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
-	   ft_basics/ft_atoi.c \
-	   ft_basics/ft_bzero.c \
-	   ft_basics/ft_calloc.c \
-	   ft_basics/ft_isalnum.c \
-	   ft_basics/ft_isalpha.c \
-	   ft_basics/ft_isascii.c \
-	   ft_basics/ft_isdigit.c \
-	   ft_basics/ft_isprint.c \
-	   ft_basics/ft_itoa.c \
-	   ft_basics/ft_itoa_base.c \
-	   ft_basics/ft_log_b.c \
-	   ft_basics/ft_memchr.c \
-	   ft_basics/ft_memcmp.c \
-	   ft_basics/ft_memcpy.c \
-	   ft_basics/ft_memmove.c \
-	   ft_basics/ft_memset.c \
-	   ft_basics/ft_putchar_fd.c \
-	   ft_basics/ft_putendl_fd.c \
-	   ft_basics/ft_putnbr_fd.c \
-	   ft_basics/ft_putstr.c \
-	   ft_basics/ft_putstr_fd.c \
-	   ft_basics/ft_split.c \
-	   ft_basics/ft_strchr.c \
-	   ft_basics/ft_strdup.c \
-	   ft_basics/ft_striteri.c \
-	   ft_basics/ft_strjoin.c \
-	   ft_basics/ft_strlcat.c \
-	   ft_basics/ft_strlcpy.c \
-	   ft_basics/ft_strlen.c \
-	   ft_basics/ft_strmapi.c \
-	   ft_basics/ft_strncmp.c \
-	   ft_basics/ft_strnstr.c \
-	   ft_basics/ft_strrchr.c \
-	   ft_basics/ft_strtrim.c \
-	   ft_basics/ft_substr.c \
-	   ft_basics/ft_tolower.c \
-	   ft_basics/ft_toupper.c \
-	   ft_basics/ft_utoa.c \
-	   ft_basics/ft_abs.c \
-	   ft_basics/ft_max.c \
-	   ft_basics/ft_min.c \
-	   ft_basics/ft_limit.c \
+	   core/ft_atoi.c \
+	   core/ft_bzero.c \
+	   core/ft_calloc.c \
+	   core/ft_isalnum.c \
+	   core/ft_isalpha.c \
+	   core/ft_isascii.c \
+	   core/ft_isdigit.c \
+	   core/ft_isprint.c \
+	   core/ft_itoa.c \
+	   core/ft_itoa_base.c \
+	   core/ft_log_b.c \
+	   core/ft_memchr.c \
+	   core/ft_memcmp.c \
+	   core/ft_memcpy.c \
+	   core/ft_memmove.c \
+	   core/ft_memset.c \
+	   core/ft_putchar_fd.c \
+	   core/ft_putendl_fd.c \
+	   core/ft_putnbr_fd.c \
+	   core/ft_putstr.c \
+	   core/ft_putstr_fd.c \
+	   core/ft_split.c \
+	   core/ft_strchr.c \
+	   core/ft_strdup.c \
+	   core/ft_striteri.c \
+	   core/ft_strjoin.c \
+	   core/ft_strlcat.c \
+	   core/ft_strlcpy.c \
+	   core/ft_strlen.c \
+	   core/ft_strmapi.c \
+	   core/ft_strncmp.c \
+	   core/ft_strnstr.c \
+	   core/ft_strrchr.c \
+	   core/ft_strtrim.c \
+	   core/ft_substr.c \
+	   core/ft_tolower.c \
+	   core/ft_toupper.c \
+	   core/ft_utoa.c \
+	   core/ft_abs.c \
+	   core/ft_max.c \
+	   core/ft_min.c \
+	   core/ft_limit.c \
 	   get_next_line/get_next_line.c \
 	   get_next_line/get_next_line_utils.c \
 	   ft_dprintf/src/dprintf.c \
@@ -63,20 +63,20 @@ OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
 	   ft_printf/ft_printf.c \
 	   ft_printf/ft_printf_handlers.c \
 	   ft_printf/ft_printf_xtoa.c \
-	   ft_vec/vec_at.c \
-	   ft_vec/vec_clear.c \
-	   ft_vec/vec_new.c \
-	   ft_vec/vec_addback.c \
-	   ft_lst/lst_at.c \
-	   ft_lst/lst_clear.c \
-	   ft_lst/lst_delone.c \
-	   ft_lst/lst_get_last.c \
-	   ft_lst/lst_iter.c \
-	   ft_lst/lst_len.c \
-	   ft_lst/lst_map.c \
-	   ft_lst/lst_next.c \
-	   ft_ptr/ft_realloc.c \
-	   ft_ptr/ft_free2.c \
+	   vec/vec_at.c \
+	   vec/vec_clear.c \
+	   vec/vec_new.c \
+	   vec/vec_addback.c \
+	   lst/lst_at.c \
+	   lst/lst_clear.c \
+	   lst/lst_delone.c \
+	   lst/lst_get_last.c \
+	   lst/lst_iter.c \
+	   lst/lst_len.c \
+	   lst/lst_map.c \
+	   lst/lst_next.c \
+	   ptr/ft_realloc.c \
+	   ptr/ft_free2.c \
 	   )
 DEPS = ${OBJS:.o=.d}
 

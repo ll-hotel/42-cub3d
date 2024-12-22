@@ -1,41 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dprintf_utils.c                                    :+:      :+:    :+:   */
+/*   lst_get_last.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 20:17:16 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/04/24 18:09:26 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/04/20 17:15:45 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/05/10 23:50:48 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_dprintf_inner.h"
+#include "lst.h"
 
-uint8_t	ft_logb(int64_t n, uint8_t base)
+t_lst	*lst_get_last(t_lst_head *lst)
 {
-	uint8_t	l;
+	t_lst	*element;
 
-	l = 0;
-	n /= base;
-	while (n)
-	{
-		n /= base;
-		l += 1;
-	}
-	return (l);
-}
-
-uint8_t	ft_logbu(uint64_t n, uint8_t base)
-{
-	uint8_t	l;
-
-	l = 0;
-	n /= base;
-	while (n)
-	{
-		n /= base;
-		l += 1;
-	}
-	return (l);
+	element = lst->first;
+	if (element)
+		while (element->next)
+			element = element->next;
+	return (element);
 }

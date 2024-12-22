@@ -1,41 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dprintf_utils.c                                    :+:      :+:    :+:   */
+/*   lst_at.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 20:17:16 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/04/24 18:09:26 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/05/23 12:22:04 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/06/25 15:50:39 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_dprintf_inner.h"
+#include "lst.h"
 
-uint8_t	ft_logb(int64_t n, uint8_t base)
+t_lst	*lst_at(t_lst_head *lst_head, unsigned long i)
 {
-	uint8_t	l;
+	t_lst	*lst_elt;
 
-	l = 0;
-	n /= base;
-	while (n)
-	{
-		n /= base;
-		l += 1;
-	}
-	return (l);
-}
-
-uint8_t	ft_logbu(uint64_t n, uint8_t base)
-{
-	uint8_t	l;
-
-	l = 0;
-	n /= base;
-	while (n)
-	{
-		n /= base;
-		l += 1;
-	}
-	return (l);
+	lst_elt = lst_head->first;
+	while (i-- > 0 && lst_elt)
+		lst_elt = lst_elt->next;
+	return (lst_elt);
 }

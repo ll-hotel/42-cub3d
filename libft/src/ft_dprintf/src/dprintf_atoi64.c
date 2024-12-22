@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dprintf_atoi64.c                                   :+:      :+:    :+:   */
+/*   ft_dprintf_atoi64.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dprintf_inner.h"
+#include "ft_dprintf_inner.h"
 
 void	ft_atoi64(char *out, int64_t n, const char *abase, uint8_t base)
 {

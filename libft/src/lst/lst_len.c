@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dprintf_utils.c                                    :+:      :+:    :+:   */
+/*   lst_len.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 20:17:16 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/04/24 18:09:26 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/04/17 22:54:41 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/05/21 14:28:51 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_dprintf_inner.h"
+#include "lst.h"
 
-uint8_t	ft_logb(int64_t n, uint8_t base)
+long	lst_len(t_lst_head *lst)
 {
-	uint8_t	l;
+	long	len;
 
-	l = 0;
-	n /= base;
-	while (n)
+	len = 0;
+	if (lst)
+		lst = (t_lst_head *)lst->first;
+	while (lst)
 	{
-		n /= base;
-		l += 1;
+		len += 1;
+		lst = (t_lst_head *)lst->first;
 	}
-	return (l);
-}
-
-uint8_t	ft_logbu(uint64_t n, uint8_t base)
-{
-	uint8_t	l;
-
-	l = 0;
-	n /= base;
-	while (n)
-	{
-		n /= base;
-		l += 1;
-	}
-	return (l);
+	return (len);
 }

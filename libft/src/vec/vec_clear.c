@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dprintf_utils.c                                    :+:      :+:    :+:   */
+/*   vec_clear.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 20:17:16 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/04/24 18:09:26 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/04/01 13:36:05 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/10/20 16:09:41 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_dprintf_inner.h"
+#include "vec.h"
+#include "core.h"
+#include <stdlib.h>
 
-uint8_t	ft_logb(int64_t n, uint8_t base)
+void	vec_clear(t_vec *vec, void (*del)(void *))
 {
-	uint8_t	l;
+	unsigned long	i;
 
-	l = 0;
-	n /= base;
-	while (n)
+	if (vec->array)
 	{
-		n /= base;
-		l += 1;
+		if (del)
+		{
+			i = -1;
+			while (++i < vec->size)
+				(*del)(vec_at(vec, i));
+		}
+		ft_memset(vec->array, 0, vec->size * vec->elem_size);
+		free(vec->array);
+		vec->array = (void *)0;
 	}
-	return (l);
-}
-
-uint8_t	ft_logbu(uint64_t n, uint8_t base)
-{
-	uint8_t	l;
-
-	l = 0;
-	n /= base;
-	while (n)
-	{
-		n /= base;
-		l += 1;
-	}
-	return (l);
+	vec->size = 0;
+	vec->allocated_size = 0;
+	vec->elem_size = 0;
 }

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_basics.h"
-#include "ft_math.h"
+#include "core.h"
+#include "math.h"
 #include <stdarg.h>
 #include <stdlib.h>
 

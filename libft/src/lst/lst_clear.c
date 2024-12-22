@@ -1,41 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dprintf_utils.c                                    :+:      :+:    :+:   */
+/*   lst_clear.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 20:17:16 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/04/24 18:09:26 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/04/17 19:53:49 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/04/27 16:07:47 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_dprintf_inner.h"
+#include "lst.h"
 
-uint8_t	ft_logb(int64_t n, uint8_t base)
+void	lst_clear(t_lst_head *lst, void (*__free)(void *))
 {
-	uint8_t	l;
-
-	l = 0;
-	n /= base;
-	while (n)
-	{
-		n /= base;
-		l += 1;
-	}
-	return (l);
-}
-
-uint8_t	ft_logbu(uint64_t n, uint8_t base)
-{
-	uint8_t	l;
-
-	l = 0;
-	n /= base;
-	while (n)
-	{
-		n /= base;
-		l += 1;
-	}
-	return (l);
+	if (!lst)
+		return ;
+	while (lst->first)
+		lst_delone(lst, __free);
 }

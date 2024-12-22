@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dprintf_atoi32.c                                   :+:      :+:    :+:   */
+/*   ft_dprintf_atoi32.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dprintf_inner.h"
+#include "ft_dprintf_inner.h"
 
 void	ft_atoi32(char *out, int32_t n, const char *abase, uint8_t base)
 {

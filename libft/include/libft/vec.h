@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dprintf_utils.c                                    :+:      :+:    :+:   */
+/*   ft_vec.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 20:17:16 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/04/24 18:09:26 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/04/01 15:24:46 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/10/15 16:03:57 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_dprintf_inner.h"
+#ifndef VEC_H
+# define VEC_H
 
-uint8_t	ft_logb(int64_t n, uint8_t base)
+typedef struct s_vector	t_vec;
+
+struct	s_vector
 {
-	uint8_t	l;
+	void			*array;
+	unsigned long	size;
+	unsigned long	elem_size;
+	unsigned long	allocated_size;
+};
 
-	l = 0;
-	n /= base;
-	while (n)
-	{
-		n /= base;
-		l += 1;
-	}
-	return (l);
-}
+void	vec_new(t_vec *vec, unsigned long elem_size);
+void	*vec_addback(t_vec *vec, void *elem);
+void	*vec_at(t_vec *vec, unsigned long i);
+void	vec_clear(t_vec *vec, void (*del)(void *));
 
-uint8_t	ft_logbu(uint64_t n, uint8_t base)
-{
-	uint8_t	l;
-
-	l = 0;
-	n /= base;
-	while (n)
-	{
-		n /= base;
-		l += 1;
-	}
-	return (l);
-}
+#endif

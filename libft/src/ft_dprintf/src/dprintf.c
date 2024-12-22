@@ -6,12 +6,12 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 19:13:27 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/04/24 16:21:01 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/23 00:39:25 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dprintf.h"
-#include "dprintf_inner.h"
+#include "ft_dprintf_inner.h"
 
 static void	_init_buf(int must_init, \
 		char string[FD_NUMBER][DPRINTF_BUFFERSIZE], \
