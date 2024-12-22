@@ -1,95 +1,85 @@
-CC = cc
+MAKEFLAGS := -j
 
-INC_DIR = include
-OBJ_DIR = .obj
-SRC_DIR = src
-LFT_DIR = libft
-MLX_DIR = minilibx-linux
+MAKE := make
+CC := clang
+RM := rm -f
+CPPFLAGS := -MMD -MP
+CFLAGS := -Wall -Wextra -Werror -Iinclude
+LDFLAGS :=
+LDLIBS := -lm -lX11 -lXext
 
-CFLAGS = -Wall -Wextra -Werror
-IFLAGS = -I${INC_DIR} -I${LFT_DIR} -I${MLX_DIR}
-DFLAGS = -MMD -MP
-LFLAGS = -L${LFT_DIR} -lft -L${MLX_DIR} -lmlx_Linux -lXext -lX11 -lm
+NAME := cub3D
+OBJ_DIR := .obj
+SRC_DIR := src
+SRCS := \
+	src/main.c \
+	src/render.c \
+	src/parsing_grid_wall_check.c \
+	src/init.c \
+	src/parsing.c \
+	src/parsing_grid_values_check.c \
+	src/mouse_tracking.c \
+	src/cube_utils.c \
+	src/wall_collision.c \
+	src/event.c \
+	src/img_put_pixel.c \
+	src/ray.c \
+	src/vec2f.c \
+	src/moving.c \
+	src/img_put_line.c \
+	src/ft_str_endswith.c \
+	src/parse_rgb.c \
+	src/render_texture.c \
+	src/parsing_grid_stretch_lines.c \
+	src/minimap.c \
+	src/parsing_colours.c \
+	src/parsing_textures.c \
+	src/read_file.c \
+	src/parsing_utils.c \
+	src/parsing_map.c \
+	src/mouse.c
+SRCS_BONUS := \
+	src/bonus/wall_collision.c \
+	src/bonus/minimap.c \
+	src/bonus/mouse.c \
 
-ifneq ("${DEBUG}", "")
-	CFLAGS := ${DEBUG} ${CFLAGS}
-endif
+OBJS := $(patsubst %,$(OBJ_DIR)/%.o,$(SRCS))
+DEPS := $(patsubst %.o,%.d,$(OBJS))
 
-FILES = cube_utils.c \
-	   event.c \
-	   ft_str_endswith.c \
-	   img_put_pixel.c \
-	   img_put_line.c \
-	   init.c \
-	   main.c \
-	   minimap.c \
-	   mouse.c \
-	   moving.c \
-	   parsing.c \
-	   parsing_utils.c \
-	   parsing_textures.c \
-	   parsing_colours.c \
-	   parse_rgb.c \
-	   parsing_map.c \
-	   parsing_grid_values_check.c \
-	   parsing_grid_stretch_lines.c \
-	   parsing_grid_wall_check.c \
-	   ray.c \
-	   read_file.c \
-	   render.c \
-	   render_texture.c \
-	   vec2f.c \
-	   wall_collision.c
-OBJS = $(FILES:%.c=${OBJ_DIR}/%.o)
+LIB_MLX := minilibx-linux/libmlx.a
+CFLAGS += -I$(dir $(LIB_MLX))
+LDFLAGS += -L$(dir $(LIB_MLX))
+LDLIBS += -l$(patsubst lib%.a,%,$(notdir $(LIB_MLX)))
 
-BONUS_DIR = bonus
-BONUS_FILES = minimap.c mouse.c wall_collision.c
+LIB_FT := libft/libft.a
+CFLAGS += -I$(dir $(LIB_FT))
+LDFLAGS += -L$(dir $(LIB_FT))
+LDLIBS += -l$(patsubst lib%.a,%,$(notdir $(LIB_FT)))
 
-DEPS = $(OBJS:.o=.d)
+all: $(NAME)
 
-LIB_FT = ${LFT_DIR}/libft.a
-LIB_MLX = ${MLX_DIR}/libmlx_Linux.a
+$(NAME): $(OBJS) | $(LIB_MLX) $(LIB_FT)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS) $(LDLIBS)
 
-NAME = cub3D
+%.a:
+	@$(MAKE) -C $(dir $@)
 
-.PHONY: all
-all: ${NAME}
+$(OBJ_DIR)/%.o: %
+	@mkdir -p $(dir $@)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
 
--include ${DEPS}
-
-${NAME}: ${OBJS} | ${LIB_FT} ${LIB_MLX}
-	${CC} ${CFLAGS} ${IFLAGS} ${DFLAGS} -o $@ ${OBJS} ${LFLAGS}
-
-${LIB_FT}::
-	@make --no-print-directory -C ${LFT_DIR}
-
-${LIB_MLX}:
-	@make --no-print-directory -C ${MLX_DIR}
-
-${OBJ_DIR}/%.o: ${SRC_DIR}/%.c | ${OBJ_DIR}
-	${CC} ${CFLAGS} ${IFLAGS} ${DFLAGS} -o $@ -c $<
-
-${OBJ_DIR}:
-	mkdir -p $(sort $(dir ${OBJS}))
-
-.PHONY: bonus
-bonus:
-ifeq ("$(wildcard ${OBJ_DIR}/${BONUS_DIR})","")
-	mkdir -p ${OBJ_DIR}/${BONUS_DIR}
-endif
-	@make --no-print-directory FILES="$(filter-out ${BONUS_FILES},${FILES}) $(BONUS_FILES:%=${BONUS_DIR}/%)"
-
-.PHONY: clean
 clean:
-	@make --no-print-directory -C ${MLX_DIR} clean
-	@make --no-print-directory -C ${LFT_DIR} clean
-	rm -rf ${OBJ_DIR}
+	@$(MAKE) -C $(dir $(LIB_FT)) clean
+	$(RM) -r $(OBJ_DIR)
 
-.PHONY: fclean
 fclean: clean
-	@make --no-print-directory -C ${LFT_DIR} fclean
-	rm -f ${NAME}
+	@$(MAKE) -C $(dir $(LIB_MLX)) clean
+	@$(MAKE) -C $(dir $(LIB_FT)) fclean
+	$(RM) $(NAME)
 
-.PHONY: re
 re: fclean
-	@make --no-print-directory
+	@$(MAKE) --no-print-directory $(NAME)
+
+-include $(DEPS)
+
+.PHONY: all clean fclean re %.a
