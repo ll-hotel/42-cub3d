@@ -16,6 +16,7 @@ SRCS += src/main.c
 SRCS += src/s_cub.c
 SRCS += src/s_img.c
 SRCS += src/s_mlx.c
+SRCS += src/hooks.c
 # SRCS += src/minimap.c
 # SRCS += src/parsing/ft_str_endswith.c
 # SRCS += src/parsing/parse_rgb.c
@@ -37,11 +38,13 @@ LDFLAGS += -L$(dir $(LIB_MLX))
 LDLIBS += -l$(patsubst lib%.a,%,$(notdir $(LIB_MLX)))
 
 LIB_FT := libft/libft.a
-CFLAGS += -I$(dir $(LIB_FT))/include
+CFLAGS += -I$(dir $(LIB_FT))include
 LDFLAGS += -L$(dir $(LIB_FT))
 LDLIBS += -l$(patsubst lib%.a,%,$(notdir $(LIB_FT)))
 
-all: $(NAME)
+all:
+	@norminette $(SRC_DIR) include | grep -v 'OK' || echo 'Norm OK!'
+	@$(MAKE) --no-print-directory $(NAME)
 
 $(NAME): $(OBJS) | $(LIB_MLX) $(LIB_FT)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS) $(LDLIBS)
@@ -63,7 +66,7 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean
-	@$(MAKE) --no-print-directory $(NAME)
+	@$(MAKE) --no-print-directory
 
 -include $(DEPS)
 
