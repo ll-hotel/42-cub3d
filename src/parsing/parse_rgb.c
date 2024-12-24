@@ -6,12 +6,12 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:03:44 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/20 17:35:08 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/23 19:42:45 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_basics.h"
-#include "ft_dprintf.h"
+#include "libft/core.h"
+#include "libft/ft_dprintf.h"
 #include "parsing.h"
 
 int	is_rgb(char const *str);

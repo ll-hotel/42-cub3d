@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_textures.c                                 :+:      :+:    :+:   */
+/*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:35:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/20 17:25:05 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/24 11:55:29 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include "ft_basics.h"
-#include "ft_dprintf.h"
+#include "libft/core.h"
+#include "libft/ft_dprintf.h"
 #include "mlx.h"
 #include "parsing.h"
 #include <fcntl.h>
@@ -20,9 +20,9 @@
 #include <unistd.h>
 
 static char	*get_texture_filename(t_line const *line);
-static int	store_texture(t_cube *cube, char const *key, char *filename);
+static int	store_texture(t_cub *cub, char const *key, char *filename);
 
-int	parsing_textures(t_cube *cube, t_line *lines)
+int	parsing_textures(t_cub *cub, t_line *lines)
 {
 	char const *const	keys[] = {"NO", "SO", "EA", "WE", NULL};
 	char const			*key;
@@ -43,7 +43,7 @@ int	parsing_textures(t_cube *cube, t_line *lines)
 		if (!filename)
 			return (0);
 		ft_strtrim_inplace(filename);
-		if (!store_texture(cube, key, filename))
+		if (!store_texture(cub, key, filename))
 			return (0);
 	}
 	return (1);
@@ -63,28 +63,35 @@ static char	*get_texture_filename(t_line const *line)
 	return (NULL);
 }
 
-static int	store_texture(t_cube *cube, char const *key, char *filename)
+static int	texture_init(t_img *img, void *mlx_ptr, char *filename)
+{
+	img->img_ptr = mlx_xpm_file_to_image(mlx_ptr, filename, \
+			&img->width, &img->height);
+	if (img->img_ptr == NULL)
+	{
+		ft_dprintf(2, "Error\nMlx failed to parse file '%s'\n", filename);
+		return (1);
+	}
+	img->data_addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, \
+			&img->size_line, &img->endian);
+	return (0);
+}
+
+static int	store_texture(t_cub *cub, char const *key, char *filename)
 {
 	t_img	*texture;
 
 	if (ft_strcmp(key, "NO") == 0)
-		texture = &cube->no_texture;
+		texture = &cub->textures[TX_NORTH];
 	else if (ft_strcmp(key, "SO") == 0)
-		texture = &cube->so_texture;
+		texture = &cub->textures[TX_SOUTH];
 	else if (ft_strcmp(key, "EA") == 0)
-		texture = &cube->ea_texture;
+		texture = &cub->textures[TX_EAST];
 	else if (ft_strcmp(key, "WE") == 0)
-		texture = &cube->we_texture;
+		texture = &cub->textures[TX_WEST];
 	else
-		return (0);
-	texture->ptr = mlx_xpm_file_to_image(cube->mlx.ptr, filename, \
-			&texture->width, &texture->height);
-	if (texture->ptr == NULL)
-	{
-		ft_dprintf(2, "Error\nMlx failed to parse file '%s'\n", filename);
-		return (0);
-	}
-	texture->pixels = mlx_get_data_addr(texture->ptr, &texture->bpp, \
-			&texture->size_line, &texture->endian);
-	return (1);
+		return (1);
+	if (texture_init(texture, cub->mlx.mlx_ptr, filename))
+		return (1);
+	return (0);
 }

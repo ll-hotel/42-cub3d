@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ***************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   s_img.c                                            :+:      :+:    :+:   */
@@ -6,16 +6,16 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 00:09:21 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/23 01:43:58 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/24 11:57:44 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/* ***************************************************************************/
 
 #include "cub3D.h"
 #include "libft/core.h"
 #include "mlx.h"
 #include <stddef.h>
 
-int	t_img_init(t_img *img, void *mlx_ptr, int width, int height)
+int	s_img_init(t_img *img, void *mlx_ptr, int width, int height)
 {
 	img->mlx_ptr = mlx_ptr;
 	img->img_ptr = mlx_new_image(mlx_ptr, width, height);
@@ -28,7 +28,7 @@ int	t_img_init(t_img *img, void *mlx_ptr, int width, int height)
 	return (0);
 }
 
-void	t_img_destroy(t_img *img)
+void	s_img_destroy(t_img *img)
 {
 	if (img->img_ptr)
 		mlx_destroy_image(img->mlx_ptr, img->img_ptr);
@@ -36,28 +36,28 @@ void	t_img_destroy(t_img *img)
 }
 
 __attribute__((__always_inline__))
-void	t_img_put_pixel(t_img *img, int x, int y, int pixel)
+void	s_img_put_pixel(t_img *img, int x, int y, int pixel)
 {
 	size_t	addr;
 
 	addr = (size_t)img->data_addr;
-	addr += y * img->size_line;
-	addr += x * 4;
+	addr += y *img->size_line;
+	addr += x *4;
 	*(int *)addr = pixel;
 }
 
 __attribute__((__always_inline__))
-int	t_img_get_pixel(const t_img *img, int x, int y)
+int	s_img_get_pixel(const t_img *img, int x, int y)
 {
 	size_t	addr;
 
 	addr = (size_t)img->data_addr;
-	addr += y * img->size_line;
-	addr += x * 4;
+	addr += y *img->size_line;
+	addr += x *4;
 	return (*(int *)addr);
 }
 
-void	t_img_put_t_img(t_img *dst, const t_img *src, int x, int y)
+void	s_img_put_t_img(t_img *dst, const t_img *src, int x, int y)
 {
 	int	ix;
 	int	iy;
@@ -69,8 +69,8 @@ void	t_img_put_t_img(t_img *dst, const t_img *src, int x, int y)
 		ix = -1;
 		while (++ix < src->width)
 		{
-			pixel = t_img_get_pixel(src, ix, iy);
-			t_img_put_pixel(dst, x + ix, y + iy, pixel);
+			pixel = s_img_get_pixel(src, ix, iy);
+			s_img_put_pixel(dst, x + ix, y + iy, pixel);
 		}
 	}
 }

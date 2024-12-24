@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_map.c                                      :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:36:00 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/22 12:58:41 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/24 12:36:41 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_dprintf.h"
-#include "ft_ptr.h"
+#include "cub3D.h"
+#include "libft/core.h"
+#include "libft/ft_dprintf.h"
+#include "libft/ptr.h"
 #include "parsing.h"
-#include "ft_basics.h"
-#include <errno.h>
+#include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 
 int			cell_is_player(int c);
 static char	**create_grid_from_lines(t_line *lines);
-static int	store_map_grid(t_cube *cube, char **grid);
-static int	store_player(t_cube *cube, char **grid);
+static int	store_player(t_entity *player, char **grid);
 
-int	parsing_map(t_cube *cube, t_line *lines)
+int	parsing_map(t_cub *cub, t_line *lines)
 {
 	char	**grid;
 
@@ -38,8 +38,8 @@ int	parsing_map(t_cube *cube, t_line *lines)
 		ft_free2((void **)grid, free);
 		return (0);
 	}
-	store_player(cube, grid);
-	return (store_map_grid(cube, grid));
+	store_player(&cub->player, grid);
+	return (s_map_init(&cub->map, (const void *)grid));
 }
 
 static char	**create_grid_from_lines(t_line *lines)
@@ -71,7 +71,7 @@ static char	**create_grid_from_lines(t_line *lines)
 	return (grid);
 }
 
-static int	store_player(t_cube *cube, char **grid)
+static int	store_player(t_entity *player, char **grid)
 {
 	ulong	y;
 	ulong	x;
@@ -85,34 +85,16 @@ static int	store_player(t_cube *cube, char **grid)
 		if (cell_is_player(grid[y][x]))
 			break ;
 	}
-	cube->player.pos.x = x + 0.5;
-	cube->player.pos.y = y + 0.5;
+	player->pos.x = x + 0.5;
+	player->pos.y = y + 0.5;
 	if (grid[y][x] == 'E')
-		cube->player.axis = 0;
+		player->axis = 0;
 	else if (grid[y][x] == 'N')
-		cube->player.axis = PI * 1.5;
+		player->axis = M_PI * 1.5;
 	else if (grid[y][x] == 'W')
-		cube->player.axis = PI;
+		player->axis = M_PI;
 	else if (grid[y][x] == 'S')
-		cube->player.axis = PI * 0.5;
-	grid[y][x] = FLOOR;
-	return (1);
-}
-
-static int	store_map_grid(t_cube *cube, char **grid)
-{
-	u_long	grid_size;
-
-	grid_size = 0;
-	while (grid[grid_size] != NULL)
-		grid_size += 1;
-	cube->map.cells = ft_calloc(grid_size + 1, sizeof(*cube->map.cells));
-	if (!cube->map.cells)
-		return (ft_dprintf(2, "Error\n%s\n", strerror(errno)), 0);
-	cube->map.height = grid_size;
-	cube->map.width = ft_strlen(grid[0]);
-	while (grid_size-- > 0)
-		cube->map.cells[grid_size] = grid[grid_size];
-	free(grid);
+		player->axis = M_PI * 0.5;
+	grid[y][x] = BL_FLOOR;
 	return (1);
 }

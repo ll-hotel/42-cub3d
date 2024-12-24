@@ -1,27 +1,35 @@
 /* ***************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   s_map.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 23:18:48 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/24 12:05:13 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/12/24 12:24:54 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/12/24 12:35:10 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ***************************************************************************/
 
-#ifndef CUB3D_H
-# define CUB3D_H
-# include "./s_cub.h"
+#ifndef S_MAP_H
+# define S_MAP_H
+# include <stddef.h>
 
-void	loop_hook(t_cub *cub);
-void	key_hook(int keysym, t_cub *cub);
+typedef unsigned char	t_uchar;
 
-enum	e_block
+typedef struct s_fptr
 {
-	BL_FLOOR,
-	BL_WALL,
-	BL_NB,
-};
+	t_uchar	*data;
+	size_t	size;
+}	t_fptr;
 
-#endif /* #ifndef CUB3D_H */
+typedef struct s_map
+{
+	t_fptr	*blocks;
+	size_t	height;
+	size_t	max_width;
+}	t_map;
+
+int		s_map_init(t_map *map, const char *const *grid);
+void	s_map_destroy(t_map *map);
+
+#endif /* ifndef S_MAP_H */

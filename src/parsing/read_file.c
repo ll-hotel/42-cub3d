@@ -6,20 +6,20 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:38:31 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/21 17:41:26 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/23 19:30:00 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_basics.h"
-#include "ft_dprintf.h"
-#include "ft_vec.h"
-#include "get_next_line.h"
+#include "libft/core.h"
+#include "libft/ft_dprintf.h"
+#include "libft/get_next_line.h"
+#include "libft/vec.h"
 #include "parsing.h"
 #include <errno.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <fcntl.h>
 
 static int	append_line(t_vec *file, char *line);
 
