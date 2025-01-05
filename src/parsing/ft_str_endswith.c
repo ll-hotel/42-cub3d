@@ -6,11 +6,11 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 14:43:29 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/07/26 14:52:27 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/24 17:50:40 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/core.h"
 
 int	ft_str_endswith(const char *s1, const char *s2)
 {

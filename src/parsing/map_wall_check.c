@@ -1,52 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_grid_wall_check.c                          :+:      :+:    :+:   */
+/*   map_wall_check.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:32:43 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/20 16:21:10 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/24 18:24:19 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
-#include "ft_dprintf.h"
+#include "parsing.h"
+#include "libft/ft_dprintf.h"
+#include <stddef.h>
+#define EMPTY ' '
+#define WALL '1'
+#define FLOOR '0'
 
-int			cell_is_valid(int c);
-int			cell_is_player(int c);
-static int	check_walls(char **grid, u_long y, u_long x);
+static int	are_walls_nice(const t_map *map, size_t y, size_t x);
 
-int	grid_wall_check(char **grid)
+int	map_has_nice_walls(const t_map *map)
 {
-	u_long	y;
-	u_long	x;
+	size_t	y;
+	size_t	x;
 
 	y = 0;
-	while (grid[y])
+	while (y < map->height)
 	{
 		x = 0;
-		while (grid[y][x])
-			if (!check_walls(grid, y, x++))
+		while (x < map->blocks[y].size)
+			if (!are_walls_nice(map, y, x++))
 				return (0);
 		y += 1;
 	}
 	return (1);
 }
 
-static int	check_walls(char **grid, u_long y, u_long x)
+static int	are_walls_nice(const t_map *map, size_t y, size_t x)
 {
 	const char	*errors[] = {"on a map edge", "adjacent to empty cell"};
-	const char	cell = grid[y][x];
+	const char	cell = map->blocks[y].data[x];
 	int			error;
 
 	error = 0;
 	if (cell != FLOOR && !cell_is_player(cell))
 		return (1);
-	else if (y == 0 || x == 0 || !grid[y + 1] || !grid[y][x + 1])
+	else if (y == 0 || x == 0 || y >= map->height || x >= map->blocks[y].size)
 		error = 1;
-	else if (grid[y][x - 1] == EMPTY || grid[y][x + 1] == EMPTY || \
-			grid[y - 1][x] == EMPTY || grid[y + 1][x] == EMPTY)
+	else if (map->blocks[y].data[x - 1] == EMPTY \
+			|| map->blocks[y].data[x + 1] == EMPTY \
+			|| map->blocks[y - 1].data[x] == EMPTY \
+			|| map->blocks[y + 1].data[x] == EMPTY)
 		error = 2;
 	if (error)
 	{

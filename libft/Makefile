@@ -1,14 +1,14 @@
-CC = cc
+CC := cc
 
-SRC_DIR = src
-INC_DIR = include
-OBJ_DIR = .obj
+SRC_DIR := src
+INC_DIR := include
+OBJ_DIR := .obj
 
-CFLAGS = -Wall -Wextra -Werror
-IFLAGS = -Iinclude/libft
-DFLAGS = -MMD -MP
+CFLAGS := -Wall -Wextra -Werror
+IFLAGS := -Iinclude -Iinclude/libft
+DFLAGS := -MMD -MP
 
-OBJS = $(patsubst %.c,${OBJ_DIR}/%.o, \
+OBJS := $(patsubst %.c,${OBJ_DIR}/%.o, \
 	   core/ft_atoi.c \
 	   core/ft_bzero.c \
 	   core/ft_calloc.c \

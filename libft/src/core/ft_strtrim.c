@@ -6,61 +6,60 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:22:21 by ll-hotel          #+#    #+#             */
-/*   Updated: 2023/11/09 13:12:51 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/24 19:28:39 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/core.h"
 #include <stdlib.h>
 
 static _Bool	_is_in_set(char c, const char *_set)
 {
-	char	*set;
+	size_t	i;
 
-	set = (char *)_set;
-	while (*set && *set != c)
-		set++;
-	return (*set == c);
-}
-
-static char	*_end_of(const char *_str)
-{
-	char	*str;
-
-	str = (char *)_str;
-	while (*str)
-		str++;
-	return (str);
-}
-
-static void	_strcpy(char *dest, char *start, char *end)
-{
-	while (start < end && *start)
-		*dest++ = *start++;
+	i = 0;
+	while (_set[i])
+		if (_set[i++] == c)
+			return (1);
+	return (0);
 }
 
 char	*ft_strtrim(const char *str, const char *set)
 {
-	char	*trimmed;
-	char	*start;
-	char	*end;
-	_Bool	end_in_set;
+	size_t	start;
+	size_t	end;
+	char	*new_str;
 
-	start = (char *)str;
-	while (*start && _is_in_set(*start, set))
-		start++;
-	end = _end_of(str);
-	while (end > start && _is_in_set(*end, set))
-		end--;
-	trimmed = 0;
-	if (start <= end)
-	{
-		end_in_set = _is_in_set(*end, set);
-		trimmed = malloc(sizeof(char) * (end - start + 1 + (start != end
-						|| !end_in_set)));
-		if (!trimmed)
-			return (0);
-		_strcpy(trimmed, start, end + 1);
-		trimmed[end - start + (start != end || !end_in_set)] = 0;
-	}
-	return (trimmed);
+	end = ft_strlen(str);
+	if (end == 0)
+		return (NULL);
+	start = 0;
+	while (str[start] && _is_in_set(str[start], set))
+		start += 1;
+	end -= 1;
+	while (end > start && _is_in_set(str[end], set))
+		end -= 1;
+	new_str = ft_calloc(end - start + 1, sizeof(*new_str));
+	if (new_str)
+		ft_memmove(new_str, &str[start], end - start + 1);
+	return (new_str);
+}
+
+char	*ft_strtrim_inplace(char *str, const char *set)
+{
+	size_t	start;
+	size_t	end;
+
+	end = ft_strlen(str);
+	if (end == 0)
+		return (str);
+	start = 0;
+	while (str[start] && _is_in_set(str[start], set))
+		start += 1;
+	end -= 1;
+	while (end > start && _is_in_set(str[end], set))
+		end -= 1;
+	str[end] = 0;
+	ft_memmove(str, &str[start], end - start + 1);
+	return (str);
 }

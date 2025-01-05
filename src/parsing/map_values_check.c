@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_grid_values_check.c                        :+:      :+:    :+:   */
+/*   map_values_check.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:52:07 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/18 18:00:19 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/24 18:26:26 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_dprintf.h"
+#include "libft/ft_dprintf.h"
 #include "parsing.h"
+#include "s_map.h"
+#include <stddef.h>
 
-int			cell_is_valid(int c);
-int			cell_is_player(int c);
-static int	check_cell_value(u_long y, u_long x, char found_player, int cell);
+static int	are_values_nice(size_t y, size_t x, _Bool found_player, int cell);
 
-int	grid_values_check(char **grid)
+int	map_has_nice_values(const t_map *map)
 {
-	u_long	y;
-	u_long	x;
-	char	found_player;
+	const t_fptr	*block;
+	size_t			y;
+	size_t			x;
+	_Bool			found_player;
 
 	found_player = 0;
 	y = -1;
-	while (grid[++y])
+	while (++y < map->height)
 	{
+		block = &map->blocks[y];
 		x = -1;
-		while (grid[y][++x])
+		while (++x < block->size)
 		{
-			if (!check_cell_value(y, x, found_player, grid[y][x]))
+			if (!are_values_nice(y, x, found_player, block->data[x]))
 				return (0);
-			found_player |= cell_is_player(grid[y][x]);
+			found_player |= cell_is_player(block->data[x]);
 		}
 	}
 	if (!found_player)
@@ -43,7 +45,7 @@ int	grid_values_check(char **grid)
 	return (1);
 }
 
-static int	check_cell_value(u_long y, u_long x, char found_player, int cell)
+static int	are_values_nice(size_t y, size_t x, _Bool found_player, int cell)
 {
 	if (!cell_is_valid(cell))
 	{

@@ -2,5 +2,8 @@ CompileFlags:
   Add:
     - "-xc"
     - "-I../include"
+    - "-I../../include"
     - "-I../libft/include"
+    - "-I../../libft/include"
     - "-I../minilibx"
+    - "-I../../minilibx"

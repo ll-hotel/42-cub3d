@@ -1,16 +1,16 @@
-/* ***************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   s_img.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 00:09:21 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/24 11:57:44 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/12/24 18:08:09 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/12/24 18:10:22 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
-/* ***************************************************************************/
+/* ************************************************************************** */
 
-#include "cub3D.h"
+#include "s_img.h"
 #include "libft/core.h"
 #include "mlx.h"
 #include <stddef.h>
@@ -41,8 +41,8 @@ void	s_img_put_pixel(t_img *img, int x, int y, int pixel)
 	size_t	addr;
 
 	addr = (size_t)img->data_addr;
-	addr += y *img->size_line;
-	addr += x *4;
+	addr += y * img->size_line;
+	addr += x * 4;
 	*(int *)addr = pixel;
 }
 
@@ -52,8 +52,8 @@ int	s_img_get_pixel(const t_img *img, int x, int y)
 	size_t	addr;
 
 	addr = (size_t)img->data_addr;
-	addr += y *img->size_line;
-	addr += x *4;
+	addr += y * img->size_line;
+	addr += x * 4;
 	return (*(int *)addr);
 }
 

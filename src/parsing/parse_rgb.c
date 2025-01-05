@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 17:03:44 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/23 19:42:45 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/24 18:13:46 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 #include "libft/ft_dprintf.h"
 #include "parsing.h"
 
-int	is_rgb(char const *str);
-
-int	parse_rgb(char const *str, u_int *value)
+int	parse_rgb(char const *str, t_uint *value)
 {
 	int	red;
 	int	green;

@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:56:33 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/10/20 17:01:40 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/24 17:46:57 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_basics.h"
+#include "libft/core.h"
 #include "parsing.h"
-#include <stddef.h>
 #include <stdlib.h>
 
 int	line_from_str(t_line *line, char *str)

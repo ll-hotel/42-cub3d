@@ -1,4 +1,4 @@
-MAKEFLAGS := -j
+MAKEFLAGS :=
 
 MAKE := make
 CC := clang
@@ -12,22 +12,23 @@ NAME := cub3D
 OBJ_DIR := .obj
 SRC_DIR := src
 SRCS :=
+
 SRCS += src/main.c
 SRCS += src/s_cub.c
 SRCS += src/s_img.c
 SRCS += src/s_mlx.c
 SRCS += src/hooks.c
-# SRCS += src/minimap.c
-# SRCS += src/parsing/ft_str_endswith.c
-# SRCS += src/parsing/parse_rgb.c
-# SRCS += src/parsing/parsing.c
-# SRCS += src/parsing/grid_values_check.c
-# SRCS += src/parsing/grid_stretch_lines.c
-# SRCS += src/parsing/colours.c
-# SRCS += src/parsing/textures.c
-# SRCS += src/parsing/utils.c
-# SRCS += src/parsing/map.c
-# SRCS += src/parsing/read_file
+SRCS += src/s_map.c
+SRCS += src/parsing/ft_str_endswith.c
+SRCS += src/parsing/parse_rgb.c
+SRCS += src/parsing/parsing.c
+SRCS += src/parsing/map_values_check.c
+SRCS += src/parsing/map_wall_check.c
+SRCS += src/parsing/colours.c
+SRCS += src/parsing/textures.c
+SRCS += src/parsing/utils.c
+SRCS += src/parsing/map.c
+SRCS += src/parsing/read_file.c
 
 OBJS := $(patsubst %,$(OBJ_DIR)/%.o,$(SRCS))
 DEPS := $(patsubst %.o,%.d,$(OBJS))
@@ -42,14 +43,15 @@ CFLAGS += -I$(dir $(LIB_FT))include
 LDFLAGS += -L$(dir $(LIB_FT))
 LDLIBS += -l$(patsubst lib%.a,%,$(notdir $(LIB_FT)))
 
-all:
-	@norminette $(SRC_DIR) include | grep -v 'OK' || echo 'Norm OK!'
-	@$(MAKE) --no-print-directory $(NAME)
+all: norminette $(NAME)
 
-$(NAME): $(OBJS) | $(LIB_MLX) $(LIB_FT)
+norminette:
+	@norminette $(SRC_DIR) include | grep -v 'OK' || echo 'Norm OK!'
+
+$(NAME): $(LIB_MLX) $(LIB_FT) $(OBJS)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS) $(LDLIBS)
 
-%.a:
+$(LIB_MLX) $(LIB_FT):
 	@$(MAKE) -C $(dir $@)
 
 $(OBJ_DIR)/%.o: %
@@ -70,4 +72,4 @@ re: fclean
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re %.a
+.PHONY: all clean fclean re $(LIB_MLX) $(LIB_FT)

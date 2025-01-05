@@ -1,14 +1,14 @@
-/* ***************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   s_map.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/24 12:19:51 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/24 12:30:45 by ll-hotel         ###   ########.fr       */
+/*   Created: 2024/12/24 18:08:24 by ll-hotel          #+#    #+#             */
+/*   Updated: 2024/12/24 18:17:48 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
-/* ***************************************************************************/
+/* ************************************************************************** */
 
 #include "libft/core.h"
 #include "libft/ft_dprintf.h"
@@ -26,7 +26,7 @@ int	s_fptr_init(t_fptr *fptr, size_t size)
 	return (0);
 }
 
-int	s_map_init(t_map *map, const char **grid)
+int	s_map_init(t_map *map, const char *const *grid)
 {
 	size_t	height;
 
@@ -41,11 +41,13 @@ int	s_map_init(t_map *map, const char **grid)
 	map->max_width = 0;
 	while (height < map->height)
 	{
-		map->blocks[height] = (t_fptr){(void *)grid[height], strlen(grid[height])};
+		map->blocks[height] = (t_fptr){\
+			(void *)grid[height], strlen(grid[height]) \
+		};
 		if (map->blocks[height].size > map->max_width)
 			map->max_width = map->blocks[height].size;
 	}
-	free(grid);
+	free((void *)grid);
 	return (0);
 }
 

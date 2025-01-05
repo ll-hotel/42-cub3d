@@ -6,40 +6,36 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:36:00 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/24 12:36:41 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2024/12/24 18:25:15 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include "libft/core.h"
 #include "libft/ft_dprintf.h"
-#include "libft/ptr.h"
 #include "parsing.h"
+#include "s_cub.h"
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 
-int			cell_is_player(int c);
 static char	**create_grid_from_lines(t_line *lines);
 static int	store_player(t_entity *player, char **grid);
 
-int	parsing_map(t_cub *cub, t_line *lines)
+int	parsing_map(t_map *map, t_entity *player, t_line *lines)
 {
-	char	**grid;
+	char **const	grid = create_grid_from_lines(lines);
 
-	grid = create_grid_from_lines(lines);
-	if (grid == NULL)
-		return (0);
-	if (!grid_values_check(grid) || \
-			!grid_stretch_lines(grid) || \
-			!grid_wall_check(grid))
-	{
-		ft_free2((void **)grid, free);
-		return (0);
-	}
-	store_player(&cub->player, grid);
-	return (s_map_init(&cub->map, (const void *)grid));
+	if (!grid)
+		return (1);
+	if (s_map_init(map, (const void *)grid))
+		return (1);
+	if (!map_has_nice_values(map) || !map_has_nice_walls(map))
+		return (1);
+	store_player(player, grid);
+	free(grid);
+	return (0);
 }
 
 static char	**create_grid_from_lines(t_line *lines)
