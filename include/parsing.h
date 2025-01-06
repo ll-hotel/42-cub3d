@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 18:09:51 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/24 18:25:25 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2025/01/05 22:25:01 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int		count_spaces(char const *str, int start);
 t_line	*find_line_by_key(t_line *lines, char const *key);
 void	free_lines(t_line *lines);
 void	free_line(void *ptr);
-void	ft_strtrim_inplace(char *str);
 
 int		ft_str_endswith(const char *s, const char *suffix);
 

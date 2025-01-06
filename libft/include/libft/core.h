@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 13:36:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/23 00:31:10 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2025/01/05 22:25:31 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,5 @@ long			ft_max(long a, long b);
 double			ft_maxf(double a, double b);
 long			ft_min(long a, long b);
 double			ft_minf(double a, double b);
+char			*ft_strtrim_inplace(char *str, const char *set);
 #endif

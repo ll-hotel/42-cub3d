@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 18:08:09 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/24 18:10:22 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2025/01/05 22:46:29 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,17 @@ int	s_img_init(t_img *img, void *mlx_ptr, int width, int height)
 	img->mlx_ptr = mlx_ptr;
 	img->img_ptr = mlx_new_image(mlx_ptr, width, height);
 	if (!img->img_ptr)
+	{
+		ft_putstr_fd("Error\nMlx image init failed\n", 2);
 		return (1);
+	}
 	img->data_addr = mlx_get_data_addr(img->img_ptr, \
 			&img->bits_per_pixel, &img->size_line, &img->endian);
 	if (!img->data_addr)
+	{
+		ft_putstr_fd("Error\nMlx image get_data_addr failed\n", 2);
 		return (1);
+	}
 	return (0);
 }
 

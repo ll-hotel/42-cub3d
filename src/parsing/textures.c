@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:35:34 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/24 19:27:30 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2025/01/05 22:27:15 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	parsing_textures(t_img *textures, void *mlx_ptr, t_line *lines)
 		filename = get_texture_filename(line);
 		if (!filename)
 			return (1);
-		ft_strtrim_inplace(filename);
+		ft_strtrim_inplace(filename, " ");
 		if (!store_texture(textures, mlx_ptr, key, filename))
 			return (1);
 	}

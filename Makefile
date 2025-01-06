@@ -1,7 +1,7 @@
 MAKEFLAGS :=
 
 MAKE := make
-CC := clang
+CC := cc
 RM := rm -f
 CPPFLAGS := -MMD -MP
 CFLAGS := -Wall -Wextra -Werror -Iinclude -O2 -g
@@ -51,8 +51,8 @@ norminette:
 $(NAME): $(LIB_MLX) $(LIB_FT) $(OBJS)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS) $(LDLIBS)
 
-$(LIB_MLX) $(LIB_FT):
-	@$(MAKE) -C $(dir $@)
+$(LIB_MLX) $(LIB_FT)::
+	@$(MAKE) --no-print-directory -C $(dir $@)
 
 $(OBJ_DIR)/%.o: %
 	@mkdir -p $(dir $@)
@@ -72,4 +72,4 @@ re: fclean
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re $(LIB_MLX) $(LIB_FT)
+.PHONY: all clean fclean re

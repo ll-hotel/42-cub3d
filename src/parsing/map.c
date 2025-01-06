@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:36:00 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/24 18:25:15 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2025/01/05 22:54:29 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static int	store_player(t_entity *player, char **grid)
 		if (cell_is_player(grid[y][x]))
 			break ;
 	}
+	ft_putstr_fd("Done with player storage\n", 2);
 	player->pos.x = x + 0.5;
 	player->pos.y = y + 0.5;
 	if (grid[y][x] == 'E')
