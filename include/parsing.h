@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 18:09:51 by ll-hotel          #+#    #+#             */
-/*   Updated: 2025/01/05 22:25:01 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:50:49 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 int		cub_parse_file(t_cub *cub, const char *filename);
 
 /* 
- *A type storing the line raw `char *` pointer, with its key/value pair.
- *If the line is empty or only made of spaces, both `key` and `value` shall be
- *NULL.
- *If the line contains only one word, only `key` shall be set.
- *Else, both `key` and `value` shall be set accordingly.
- *Please note that `value` can contain multiple words separated with one or
- *more spaces.
+ * A type storing the line raw `char *` pointer, with its key/value pair.
+ * If the line is empty or only made of spaces, both `key` and `value` shall be
+ * NULL.
+ * If the line contains only one word, only `key` shall be set.
+ * Else, both `key` and `value` shall be set accordingly.
+ * Please note that `value` can contain multiple words separated with one or
+ * more spaces.
  */
 typedef struct s_line	t_line;
 
@@ -36,7 +36,7 @@ struct	s_line
 
 int		read_file(char const *file_name, t_line **lines);
 
-int		parsing_textures(t_img *textures, void *mlx_ptr, t_line *lines);
+int		parsing_textures(t_img *textures, const t_mlx *mlx, t_line *lines);
 int		parsing_colours(t_uint *colors, t_line *lines);
 int		parse_rgb(char const *str, t_uint *value);
 int		is_rgb(char const *str);

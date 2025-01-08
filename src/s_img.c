@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 18:08:09 by ll-hotel          #+#    #+#             */
-/*   Updated: 2025/01/05 22:46:29 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:46:38 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 int	s_img_init(t_img *img, void *mlx_ptr, int width, int height)
 {
+	ft_bzero(img, sizeof(*img));
 	img->mlx_ptr = mlx_ptr;
 	img->img_ptr = mlx_new_image(mlx_ptr, width, height);
 	if (!img->img_ptr)
@@ -31,6 +32,9 @@ int	s_img_init(t_img *img, void *mlx_ptr, int width, int height)
 		ft_putstr_fd("Error\nMlx image get_data_addr failed\n", 2);
 		return (1);
 	}
+	img->width = width;
+	img->height = height;
+	img->pixels = width * height;
 	return (0);
 }
 
@@ -42,7 +46,7 @@ void	s_img_destroy(t_img *img)
 }
 
 __attribute__((__always_inline__))
-void	s_img_put_pixel(t_img *img, int x, int y, int pixel)
+inline void	s_img_put_pixel(t_img *img, int x, int y, int pixel)
 {
 	size_t	addr;
 
@@ -53,7 +57,7 @@ void	s_img_put_pixel(t_img *img, int x, int y, int pixel)
 }
 
 __attribute__((__always_inline__))
-int	s_img_get_pixel(const t_img *img, int x, int y)
+inline int	s_img_get_pixel(const t_img *img, int x, int y)
 {
 	size_t	addr;
 

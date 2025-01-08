@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:03:07 by ll-hotel          #+#    #+#             */
-/*   Updated: 2025/01/05 22:50:50 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:51:58 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,13 @@ int	cub_parse_file(t_cub *cub, const char *filename)
 		return (1);
 	}
 	lines = NULL;
-	error = !read_file(filename, &lines);
-	ft_dprintf(1, "Next...\n");
+	error = read_file(filename, &lines);
 	if (!error)
-		error = !parsing_textures(cub->textures, cub->mlx.mlx_ptr, lines);
-	ft_dprintf(1, "Next...\n");
+		error = parsing_textures(cub->textures, &cub->mlx, lines);
 	if (!error)
-		error = !parsing_colours(cub->colors, lines);
-	ft_dprintf(1, "Next...\n");
+		error = parsing_colours(cub->colors, lines);
 	if (!error)
-		error = !parsing_map(&cub->map, &cub->player, lines);
-	ft_dprintf(1, "Next...\n");
+		error = parsing_map(&cub->map, &cub->player, lines);
 	if (lines)
 		free_lines(lines);
 	return (error);

@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 18:08:24 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/24 18:17:48 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:39:26 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ int	s_fptr_init(t_fptr *fptr, size_t size)
 		return (1);
 	fptr->size = size;
 	return (0);
+}
+
+void	s_fptr_destroy(t_fptr *fptr)
+{
+	free(fptr->data);
+	ft_bzero(fptr, sizeof(*fptr));
 }
 
 int	s_map_init(t_map *map, const char *const *grid)
@@ -46,8 +52,8 @@ int	s_map_init(t_map *map, const char *const *grid)
 		};
 		if (map->blocks[height].size > map->max_width)
 			map->max_width = map->blocks[height].size;
+		height += 1;
 	}
-	free((void *)grid);
 	return (0);
 }
 
@@ -58,7 +64,7 @@ void	s_map_destroy(t_map *map)
 		while (map->height > 0)
 		{
 			map->height -= 1;
-			free(map->blocks[map->height].data);
+			s_fptr_destroy(&map->blocks[map->height]);
 		}
 		free(map->blocks);
 	}

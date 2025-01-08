@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:36:00 by ll-hotel          #+#    #+#             */
-/*   Updated: 2025/01/05 22:54:29 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:04:28 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <string.h>
 
 static char	**create_grid_from_lines(t_line *lines);
-static int	store_player(t_entity *player, char **grid);
+static int	store_player(t_entity *player, const t_map *map);
 
 int	parsing_map(t_map *map, t_entity *player, t_line *lines)
 {
@@ -33,7 +33,7 @@ int	parsing_map(t_map *map, t_entity *player, t_line *lines)
 		return (1);
 	if (!map_has_nice_values(map) || !map_has_nice_walls(map))
 		return (1);
-	store_player(player, grid);
+	store_player(player, map);
 	free(grid);
 	return (0);
 }
@@ -67,31 +67,30 @@ static char	**create_grid_from_lines(t_line *lines)
 	return (grid);
 }
 
-static int	store_player(t_entity *player, char **grid)
+static int	store_player(t_entity *player, const t_map *map)
 {
 	ulong	y;
 	ulong	x;
 
+	x = 0;
 	y = -1;
-	while (grid[++y])
+	while (++y < map->height && x < map->blocks[y].size)
 	{
-		x = 0;
-		while (grid[y][x] && !cell_is_player(grid[y][x]))
-			x += 1;
-		if (cell_is_player(grid[y][x]))
-			break ;
+		x = -1;
+		while (++x < map->blocks[y].size)
+			if (cell_is_player(map->blocks[y].data[x]))
+				break ;
 	}
-	ft_putstr_fd("Done with player storage\n", 2);
 	player->pos.x = x + 0.5;
 	player->pos.y = y + 0.5;
-	if (grid[y][x] == 'E')
+	if (map->blocks[y].data[x] == 'E')
 		player->axis = 0;
-	else if (grid[y][x] == 'N')
+	else if (map->blocks[y].data[x] == 'N')
 		player->axis = M_PI * 1.5;
-	else if (grid[y][x] == 'W')
+	else if (map->blocks[y].data[x] == 'W')
 		player->axis = M_PI;
-	else if (grid[y][x] == 'S')
+	else if (map->blocks[y].data[x] == 'S')
 		player->axis = M_PI * 0.5;
-	grid[y][x] = BL_FLOOR;
+	map->blocks[y].data[x] = BL_FLOOR;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:38:31 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/23 19:30:00 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:42:49 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@ int	read_file(char const *file_name, t_line **lines)
 	{
 		ft_dprintf(2, "Error\nCould not open file %s: %s\n", \
 				file_name, strerror(errno));
-		return (0);
+		return (1);
 	}
 	vec_new(&file, sizeof(**lines));
 	line = get_next_line(fd);
 	while (line)
 	{
 		if (!append_line(&file, line))
-			return (0);
+			return (1);
 		line = get_next_line(fd);
 	}
 	if (!vec_addback(&file, &(t_line){0}))
-		return (vec_clear(&file, free_line), 0);
+		return (vec_clear(&file, free_line), 1);
 	*lines = file.array;
-	return (1);
+	return (0);
 }
 
 static int	append_line(t_vec *file, char *str)

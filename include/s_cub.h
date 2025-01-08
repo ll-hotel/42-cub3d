@@ -6,7 +6,7 @@
 /*   By: ll-hotel <ll-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 18:09:09 by ll-hotel          #+#    #+#             */
-/*   Updated: 2024/12/24 18:09:10 by ll-hotel         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:22:51 by ll-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ enum	e_color_index
 typedef struct s_cub
 {
 	t_mlx		mlx;
+	t_img		win_img;
 	t_img		textures[TX_NB];
 	t_uint		colors[CO_NB];
 	t_entity	player;

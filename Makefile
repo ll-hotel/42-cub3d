@@ -16,9 +16,20 @@ SRCS :=
 SRCS += src/main.c
 SRCS += src/s_cub.c
 SRCS += src/s_img.c
-SRCS += src/s_mlx.c
+
+SRCS += src/s_mlx/s_mlx.c
+SRCS += src/s_mlx/s_mlx_hook.c
+SRCS += src/s_mlx/s_mlx_key_hook.c
+SRCS += src/s_mlx/s_mlx_loop_hook.c
+SRCS += src/s_mlx/s_mlx_loop.c
+SRCS += src/s_mlx/s_mlx_loop_end.c
+SRCS += src/s_mlx/s_mlx_new_img.c
+SRCS += src/s_mlx/s_mlx_xpm_file_to_img.c
+SRCS += src/s_mlx/s_mlx_put_image_to_window.c
+
 SRCS += src/hooks.c
 SRCS += src/s_map.c
+
 SRCS += src/parsing/ft_str_endswith.c
 SRCS += src/parsing/parse_rgb.c
 SRCS += src/parsing/parsing.c
